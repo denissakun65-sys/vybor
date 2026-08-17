@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f3ee" />
+  <title>Выбор — вопросы, которые делят людей</title>
+  <meta name="description" content="Голосуй, сравнивай ответы и создавай собственные дилеммы." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="На главную">
+      <svg viewBox="0 0 42 42" aria-hidden="true"><path d="M21 3 38 12.5v17L21 39 4 29.5v-17Z"/><path d="m14 20 5 5 10-11"/></svg>
+      <span>ВЫБОР</span>
+    </a>
+    <nav class="nav" aria-label="Основная навигация">
+      <button data-scroll="vote">Голосовать</button>
+      <button data-scroll="topics">Темы</button>
+      <button data-scroll="generator">Генератор</button>
+      <button data-scroll="rating">Рейтинг</button>
+    </nav>
+    <button class="header-action" id="randomHeader">Случайный <span>↗</span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="overline"><i></i> Коллективное любопытство</div>
+        <h1>ВЫБОР<br><span>ПОКАЖЕТ</span><br>КТО ТЫ</h1>
+        <p>Честные дилеммы без правильных ответов. Выбери сторону и сразу узнай, сколько людей думают так же.</p>
+        <div class="hero-actions">
+          <button class="solid-btn" data-scroll="vote">Начать голосовать <span>↓</span></button>
+          <div class="total-counter"><strong id="totalVotesHero">2 481 903</strong><small>анонимных ответов</small></div>
+        </div>
+      </div>
+      <div class="decision-visual" aria-hidden="true">
+        <div class="visual-grid"></div>
+        <svg class="visual-lines" viewBox="0 0 600 600">
+          <path d="M300 67v92M300 441v92M67 300h92M441 300h92"/>
+          <path d="M135 135l65 65M400 400l65 65M465 135l-65 65M200 400l-65 65"/>
+          <circle cx="300" cy="300" r="141"/>
+          <circle cx="300" cy="300" r="92"/>
+        </svg>
+        <div class="visual-core"><span>ИЛИ</span><b>?</b></div>
+        <div class="node node-a"><i>A</i><span>45%</span></div>
+        <div class="node node-b"><i>B</i><span>55%</span></div>
+        <span class="axis-label label-x">МНЕНИЕ</span>
+        <span class="axis-label label-y">ВЫБОР</span>
+      </div>
+    </section>
+
+    <div class="signal-line" aria-hidden="true"><span>01 ВОПРОС</span><i></i><span>02 ВЫБОР</span><i></i><span>03 РЕЗУЛЬТАТ</span><i></i><span>100% АНОНИМНО</span></div>
+
+    <section class="topics-section" id="topics">
+      <div class="section-heading">
+        <div><span class="section-number">01</span><h2>Темы</h2></div>
+        <p>Выбери направление мысли<br>или открой всё сразу.</p>
+      </div>
+      <div class="topic-list" id="topicList"></div>
+    </section>
+
+    <section class="vote-section" id="vote">
+      <div class="section-heading vote-heading">
+        <div><span class="section-number">02</span><h2>Твой вопрос</h2></div>
+        <div class="question-index"><span id="currentIndex">01</span><i></i><span id="questionCount">30</span></div>
+      </div>
+
+      <div class="vote-layout">
+        <article class="poll-card" id="pollCard">
+          <div class="card-topline">
+            <span class="category-pill" id="questionCategory">ДИЛЕММЫ</span>
+            <button class="icon-btn" id="copyBtn" title="Скопировать ссылку" aria-label="Скопировать ссылку">
+              <svg viewBox="0 0 24 24"><path d="M8 12h8M13 8l4 4-4 4"/><path d="M17 5h2v14H5V5h2"/></svg>
+            </button>
+          </div>
+          <h3 id="questionText">Загрузка вопроса…</h3>
+          <p class="question-note" id="questionNote"></p>
+          <div class="options" id="options" role="group" aria-label="Варианты ответа"></div>
+          <div class="result-message" id="resultMessage" aria-live="polite"></div>
+          <div class="card-footer">
+            <div class="vote-count"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c3 0 5 2 5 5"/></svg><strong id="voteCount">0</strong> голосов</div>
+            <div class="card-actions"><button class="text-btn" id="skipBtn">Пропустить</button><button class="next-btn" id="nextBtn" disabled>Дальше <span>→</span></button></div>
+          </div>
+        </article>
+
+        <aside class="side-panel">
+          <div class="side-card your-stats">
+            <div class="side-title"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/></svg><span>ТВОЙ ПРОФИЛЬ</span></div>
+            <div class="stat-ring" id="statRing"><strong id="agreementRate">—</strong><small>с большинством</small></div>
+            <div class="mini-stats"><div><b id="answeredCount">0</b><span>ответов</span></div><div><b id="streakCount">0</b><span>серия</span></div></div>
+          </div>
+          <div class="side-card hot-card">
+            <div class="side-title"><svg viewBox="0 0 24 24"><path d="M4 17 9 12l4 3 7-9"/><path d="M15 6h5v5"/></svg><span>В ЦЕНТРЕ СПОРА</span></div>
+            <p id="hotQuestion">Что важнее: быть правым или сохранить отношения?</p>
+            <button id="hotBtn">Открыть вопрос <span>↗</span></button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="generator-section" id="generator">
+      <div class="generator-intro">
+        <span class="section-number">03</span>
+        <h2>Генератор<br><span>дилемм</span></h2>
+        <p>Создай новый вопрос за несколько секунд. Алгоритм соединит тему, характер и уровень сложности — без нейросети и повторов.</p>
+        <div class="generator-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg><span>Работает прямо в браузере.<br>Ничего не отправляет на сервер.</span></div>
+      </div>
+      <div class="generator-panel">
+        <div class="generator-controls">
+          <label><span>ТЕМА</span><select id="genCategory"><option>Случайная</option><option>Деньги</option><option>Отношения</option><option>Будущее</option><option>Абсурд</option><option>Выбор</option></select></label>
+          <label><span>ХАРАКТЕР</span><select id="genTone"><option>Сбалансированный</option><option>Сложный</option><option>Ироничный</option></select></label>
+        </div>
+        <div class="generated-question" id="generatedQuestion">
+          <span class="gen-label">НОВЫЙ ВОПРОС</span>
+          <h3>Нажми «Создать», и здесь появится новая дилемма.</h3>
+          <div class="gen-options"><span>Вариант A</span><i>ИЛИ</i><span>Вариант B</span></div>
+        </div>
+        <div class="generator-actions">
+          <button class="outline-btn" id="regenerateBtn">Создать заново <span>⟳</span></button>
+          <button class="solid-btn" id="addQuestionBtn" disabled>Добавить в голосование <span>＋</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="rating-section" id="rating">
+      <div class="section-heading light">
+        <div><span class="section-number">04</span><h2>Почти 50 / 50</h2></div>
+        <p>Вопросы, которые разделили<br>аудиторию ровно пополам.</p>
+      </div>
+      <div class="rating-grid" id="ratingGrid"></div>
+    </section>
+
+    <section class="manifesto">
+      <svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><path d="M40 6v68M6 40h68M16 16l48 48M64 16 16 64"/></svg>
+      <p>Правильного ответа не существует</p>
+      <h2>СУЩЕСТВУЕТ<br><span>ТВОЙ ВЫБОР</span></h2>
+      <button class="solid-btn" id="manifestoRandom">Случайный вопрос <span>↗</span></button>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#top"><svg viewBox="0 0 42 42"><path d="M21 3 38 12.5v17L21 39 4 29.5v-17Z"/><path d="m14 20 5 5 10-11"/></svg><span>ВЫБОР</span></a>
+    <p>Независимый проект о человеческих решениях.<br>Результаты носят развлекательный характер.</p>
+    <div class="footer-links"><button data-scroll="vote">Голосовать</button><button data-scroll="generator">Генератор</button><button id="resetStats">Сбросить ответы</button></div>
+    <span class="copyright">2026 / BY</span>
+  </footer>
+  <div class="toast" id="toast" role="status">Готово</div>
+  <script src="app.js"></script>
+</body>
+</html>
