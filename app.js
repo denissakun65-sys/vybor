@@ -151,6 +151,12 @@ function addGenerated(){
 renderTopics();renderQuestion();renderRating();updateStats();
 els.next.onclick=()=>changeQuestion();$('#skipBtn').onclick=()=>changeQuestion();$('#randomHeader').onclick=randomQuestion;$('#manifestoRandom').onclick=randomQuestion;$('#hotBtn').onclick=()=>{changeQuestion(3);setTimeout(()=>$('#vote').scrollIntoView({behavior:'smooth'}),100)};
 $('#copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]+'#vote');showToast('Ссылка скопирована');}catch{showToast('Ссылка готова: '+location.href)}};
+const helpModal=$('#localHelp');
+function openLocalHelp(){helpModal.classList.add('open');helpModal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');helpModal.querySelector('.modal-close').focus()}
+function closeLocalHelp(){helpModal.classList.remove('open');helpModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
+document.querySelectorAll('[data-local-help]').forEach(b=>b.onclick=openLocalHelp);
+document.querySelectorAll('[data-close-help]').forEach(b=>b.onclick=closeLocalHelp);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&helpModal.classList.contains('open'))closeLocalHelp()});
 document.querySelectorAll('[data-scroll]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}));
 $('#regenerateBtn').onclick=generateDilemma;$('#addQuestionBtn').onclick=addGenerated;
 $('#resetStats').onclick=()=>{if(confirm('Сбросить все твои ответы и статистику?')){stats={answered:0,agreed:0,streak:0,votes:{}};localStorage.setItem('vybiraiStats',JSON.stringify(stats));updateStats();renderQuestion();showToast('Статистика сброшена')}};

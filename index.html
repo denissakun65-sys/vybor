@@ -7,6 +7,7 @@
   <title>Выбор — вопросы, которые делят людей</title>
   <meta name="description" content="Голосуй, сравнивай ответы и создавай собственные дилеммы." />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="local-help.css" />
 </head>
 <body>
   <header class="site-header">
@@ -31,6 +32,7 @@
         <p>Честные дилеммы без правильных ответов. Выбери сторону и сразу узнай, сколько людей думают так же.</p>
         <div class="hero-actions">
           <button class="solid-btn" data-scroll="vote">Начать голосовать <span>↓</span></button>
+          <button class="local-help-link" data-local-help><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg> Открыть локально</button>
           <div class="total-counter"><strong id="totalVotesHero">2 481 903</strong><small>анонимных ответов</small></div>
         </div>
       </div>
@@ -142,9 +144,31 @@
   <footer>
     <a class="brand footer-brand" href="#top"><svg viewBox="0 0 42 42"><path d="M21 3 38 12.5v17L21 39 4 29.5v-17Z"/><path d="m14 20 5 5 10-11"/></svg><span>ВЫБОР</span></a>
     <p>Независимый проект о человеческих решениях.<br>Результаты носят развлекательный характер.</p>
-    <div class="footer-links"><button data-scroll="vote">Голосовать</button><button data-scroll="generator">Генератор</button><button id="resetStats">Сбросить ответы</button></div>
+    <div class="footer-links"><button data-scroll="vote">Голосовать</button><button data-scroll="generator">Генератор</button><button data-local-help>Как открыть локально</button><button id="resetStats">Сбросить ответы</button></div>
     <span class="copyright">2026 / BY</span>
   </footer>
+
+  <div class="help-modal" id="localHelp" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <button class="modal-backdrop" data-close-help aria-label="Закрыть окно"></button>
+    <div class="help-dialog">
+      <div class="help-head">
+        <div><span class="section-number">БЕЗ УСТАНОВКИ</span><h2 id="helpTitle">Сайт на твоём компьютере</h2></div>
+        <button class="modal-close" data-close-help aria-label="Закрыть">×</button>
+      </div>
+      <p class="help-lead">Python, терминал и специальные программы не нужны. Сайт полностью статический и запускается обычным двойным кликом.</p>
+      <div class="install-steps">
+        <article><b>01</b><svg viewBox="0 0 32 32"><path d="M16 4v16M9 14l7 7 7-7M5 27h22"/></svg><h3>Скачай архив</h3><p>Нажми кнопку ниже. Браузер загрузит ZIP-архив проекта с GitHub.</p></article>
+        <article><b>02</b><svg viewBox="0 0 32 32"><path d="M4 9h10l3 3h11v15H4Z"/><path d="M9 9V5h14v7"/></svg><h3>Распакуй</h3><p>Нажми на архив правой кнопкой и выбери «Извлечь всё» или «Распаковать».</p></article>
+        <article><b>03</b><svg viewBox="0 0 32 32"><path d="M6 4h15l5 5v19H6Z"/><path d="M21 4v6h5M11 16h10M11 21h7"/></svg><h3>Открой index.html</h3><p>В распакованной папке дважды нажми <code>index.html</code>. Готово — сайт откроется в браузере.</p></article>
+      </div>
+      <div class="help-actions">
+        <a class="download-btn" href="https://github.com/denissakun65-sys/vybor/archive/refs/heads/main.zip">Скачать сайт в ZIP <span>↓</span></a>
+        <div><strong>Работает офлайн</strong><small>Голосования, генератор и личная статистика доступны без интернета.</small></div>
+      </div>
+      <details><summary>Если Windows показывает предупреждение</summary><p>Убедись, что открываешь именно файл <code>index.html</code>. Выбери «Открыть с помощью» → Chrome, Edge, Firefox или другой браузер. Ничего устанавливать не требуется.</p></details>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status">Готово</div>
   <script src="app.js"></script>
 </body>
