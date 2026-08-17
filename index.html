@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://denissakun65-sys.github.io/vybor/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 <div class="app-shell">
@@ -43,7 +43,7 @@
 
     <div class="content">
       <section class="welcome-row">
-        <div><span class="eyebrow">ПЕРСОНАЛЬНАЯ СЕССИЯ</span><h1>Привет, <span id="helloName">участник</span>.</h1><p>Вопросы подбираются отдельно для твоего профиля и не повторяются, пока не закончится набор.</p></div>
+        <div><span class="eyebrow">ПЕРСОНАЛЬНАЯ СЕССИЯ</span><h1>Привет, <span id="helloName">участник</span>.</h1><p id="remainingQuestions">Вопросы подбираются отдельно для профиля и не повторяются.</p></div>
         <button class="primary" id="quickGenerate">Новый вопрос <span>↗</span></button>
       </section>
 
@@ -69,6 +69,8 @@
             <p id="questionNote">Здесь нет правильного ответа. Выбирай честно.</p>
             <div class="answer-grid" id="answerGrid"></div>
             <div class="result-note" id="resultNote"></div>
+            <div class="fun-verdict" id="funVerdict"><span id="verdictIcon">↯</span><div><small id="verdictLabel">ВЕРДИКТ</small><b id="verdictText"></b></div></div>
+            <div class="confetti" id="confetti" aria-hidden="true"></div>
           </div>
           <footer class="question-footer"><div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg><span id="localVoteLabel">Пока нет локальных ответов</span></div><div><button class="ghost" id="skipQuestion">Пропустить</button><button class="primary small" id="nextQuestion" disabled>Следующий <span>→</span></button></div></footer>
         </article>
@@ -76,6 +78,7 @@
           <div class="panel-title"><span>СЕССИЯ</span><b id="sessionProgress">0 / 10</b></div>
           <div class="progress"><i id="sessionBar"></i></div>
           <div class="session-list" id="sessionList"></div>
+          <div class="achievement-box"><span>ДОСТИЖЕНИЯ</span><div id="achievementList"></div></div>
           <button class="outline full" id="restartSession">Новая сессия</button>
         </aside>
       </section>
@@ -84,7 +87,7 @@
         <div class="section-title"><div><span>ИНСТРУМЕНТ</span><h2>Генератор вопросов</h2></div><p>Собирает новую дилемму из темы, ставки и ограничения. Комбинации сохраняются, чтобы не повторяться у текущего участника.</p></div>
         <div class="generator-card">
           <div class="generator-form">
-            <label><span>ТЕМА</span><select id="genCategory"><option value="random">Любая</option><option value="adult">18+ и неловкое</option><option value="relations">Отношения</option><option value="money">Деньги</option><option value="life">Жизнь</option><option value="absurd">Абсурд</option></select></label>
+            <label><span>ТЕМА</span><select id="genCategory"><option value="random">Любая</option><option value="adult">18+ и неловкое</option><option value="cringe">Кринж и друзья</option><option value="relations">Отношения</option><option value="money">Деньги</option><option value="life">Жизнь</option><option value="absurd">Абсурд</option></select></label>
             <label><span>ЖЁСТКОСТЬ</span><input type="range" id="genIntensity" min="1" max="3" value="2"><output id="intensityOutput">Смело</output></label>
             <label><span>ФОРМАТ</span><select id="genFormat"><option value="either">А или Б</option><option value="yesno">Да или нет</option><option value="sacrifice">Чем пожертвовать</option></select></label>
             <button class="primary" id="generateCustom">Сгенерировать <span>⌁</span></button>
@@ -109,7 +112,7 @@
 
 <div class="drawer" id="settingsDrawer" aria-hidden="true"><button class="drawer-backdrop" data-close-settings></button><aside><header><div><span>ПЕРСОНАЛИЗАЦИЯ</span><h2>Настройки</h2></div><button data-close-settings>×</button></header><div class="settings-body">
   <section><h3>Внешний вид</h3><label class="setting-row"><span><b>Тема</b><small>Цветовая схема приложения</small></span><select id="themeSetting"><option value="dark">Тёмная</option><option value="light">Светлая</option><option value="system">Как в системе</option></select></label><label class="setting-row"><span><b>Акцент</b><small>Основной цвет интерфейса</small></span><div class="color-options" id="accentSetting"><button data-color="#7c5cff" style="--c:#7c5cff"></button><button data-color="#33d17a" style="--c:#33d17a"></button><button data-color="#ff5c5c" style="--c:#ff5c5c"></button><button data-color="#27a8ff" style="--c:#27a8ff"></button><button data-color="#f5c542" style="--c:#f5c542"></button></div></label><label class="setting-row"><span><b>Размер текста</b><small id="fontSettingLabel">100% — стандартный</small></span><input id="fontSetting" type="range" min="90" max="125" step="5" value="100"></label><label class="setting-row"><span><b>Компактный режим</b><small>Скрывает приветствие и сильно уменьшает карточки</small></span><input class="switch" id="compactSetting" type="checkbox"></label><label class="setting-row"><span><b>Анимации</b><small>Плавные переходы</small></span><input class="switch" id="motionSetting" type="checkbox" checked></label></section>
-  <section><h3>Вопросы</h3><label class="setting-row"><span><b>Контент 18+</b><small>Неловкие и взрослые темы</small></span><input class="switch" id="adultSetting" type="checkbox" checked></label><label class="setting-row"><span><b>Уровень жёсткости</b><small id="globalIntensityLabel">Смело</small></span><input id="globalIntensity" type="range" min="1" max="3" value="2"></label><label class="setting-row"><span><b>Не повторять вопросы</b><small>Отдельно для каждого профиля</small></span><input class="switch" id="uniqueSetting" type="checkbox" checked></label></section>
+  <section><h3>Вопросы</h3><label class="setting-row"><span><b>Контент 18+</b><small>Неловкие и взрослые темы</small></span><input class="switch" id="adultSetting" type="checkbox" checked></label><label class="setting-row"><span><b>Уровень жёсткости</b><small id="globalIntensityLabel">Смело</small></span><input id="globalIntensity" type="range" min="1" max="3" value="2"></label><label class="setting-row"><span><b>Не повторять вопросы</b><small>Учитываются показанные и пропущенные вопросы</small></span><input class="switch" id="uniqueSetting" type="checkbox" checked></label><button class="outline full" id="resetSeen">Начать набор вопросов заново</button></section>
   <section><h3>Приватность и данные</h3><label class="setting-row"><span><b>Скрывать фамилию</b><small>В таблице будет видна только первая буква</small></span><input class="switch" id="privacySetting" type="checkbox"></label><div class="setting-buttons"><button class="outline" id="importData">Импорт JSON</button><button class="outline" id="exportDataSettings">Экспорт JSON</button></div><button class="danger full" id="resetAll">Удалить все локальные данные</button></section>
   <section><h3>Запуск без установки</h3><p class="settings-note">Скачай ZIP, распакуй архив и дважды нажми <b>index.html</b>. Python, Node.js и терминал не нужны.</p><a class="primary download-link" href="https://github.com/denissakun65-sys/vybor/archive/refs/heads/main.zip">Скачать ZIP <span>↓</span></a></section>
 </div></aside></div>
