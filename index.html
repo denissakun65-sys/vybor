@@ -1,175 +1,106 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f5f3ee" />
-  <title>Выбор — вопросы, которые делят людей</title>
-  <meta name="description" content="Голосуй, сравнивай ответы и создавай собственные дилеммы." />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="local-help.css" />
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0d10">
+  <title>ЧЕСТНО — личные дилеммы 18+</title>
+  <meta name="description" content="Случайные честные дилеммы, реальные локальные результаты и таблица участников.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="На главную">
-      <svg viewBox="0 0 42 42" aria-hidden="true"><path d="M21 3 38 12.5v17L21 39 4 29.5v-17Z"/><path d="m14 20 5 5 10-11"/></svg>
-      <span>ВЫБОР</span><i class="age-label">18+</i>
-    </a>
-    <nav class="nav" aria-label="Основная навигация">
-      <button data-scroll="vote">Голосовать</button>
-      <button data-scroll="topics">Темы</button>
-      <button data-scroll="generator">Генератор</button>
-      <button data-scroll="rating">Рейтинг</button>
+  <svg class="svg-defs" aria-hidden="true"><defs>
+    <symbol id="i-vote" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><path d="M4 4h16v16H4z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c3 0 5 2 5 5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 13.5v-3l2-1-2-4-2 1a8 8 0 0 0-3-2l-.5-2h-4L9 4.5a8 8 0 0 0-3 2l-2-1-2 4 2 1v3l-2 1 2 4 2-1a8 8 0 0 0 3 2l.5 2h4l.5-2a8 8 0 0 0 3-2l2 1 2-4z"/></symbol>
+    <symbol id="i-random" viewBox="0 0 24 24"><path d="M4 7h3c5 0 5 10 10 10h3M17 4l3 3-3 3M4 17h3c2 0 3-2 4-4M17 14l3 3-3 3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+  </defs></svg>
+
+  <aside class="sidebar">
+    <a class="logo" href="#"><span class="logo-shape">Ч</span><b>ЧЕСТНО</b><i>18+</i></a>
+    <nav>
+      <button class="nav-item active" data-view="vote"><svg><use href="#i-vote"/></svg><span>Вопросы</span></button>
+      <button class="nav-item" data-view="people"><svg><use href="#i-users"/></svg><span>Участники</span></button>
+      <button class="nav-item" data-view="insights"><svg><use href="#i-chart"/></svg><span>Моя статистика</span></button>
     </nav>
-    <button class="header-action" id="randomHeader">Случайный <span>↗</span></button>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="overline"><i></i> Коллективное любопытство</div>
-        <h1>ВЫБОР<br><span>ПОКАЖЕТ</span><br>КТО ТЫ</h1>
-        <p>Честные дилеммы без правильных ответов. Выбери сторону и сразу узнай, сколько людей думают так же.</p>
-        <div class="hero-actions">
-          <button class="solid-btn" data-scroll="vote">Начать голосовать <span>↓</span></button>
-          <button class="local-help-link" data-local-help><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg> Открыть локально</button>
-          <div class="total-counter"><strong id="totalVotesHero">2 481 903</strong><small>анонимных ответов</small></div>
-        </div>
-      </div>
-      <div class="decision-visual" aria-hidden="true">
-        <div class="visual-grid"></div>
-        <svg class="visual-lines" viewBox="0 0 600 600">
-          <path d="M300 67v92M300 441v92M67 300h92M441 300h92"/>
-          <path d="M135 135l65 65M400 400l65 65M465 135l-65 65M200 400l-65 65"/>
-          <circle cx="300" cy="300" r="141"/>
-          <circle cx="300" cy="300" r="92"/>
-        </svg>
-        <div class="visual-core"><span>ИЛИ</span><b>?</b></div>
-        <div class="node node-a"><i>A</i><span>45%</span></div>
-        <div class="node node-b"><i>B</i><span>55%</span></div>
-        <span class="axis-label label-x">МНЕНИЕ</span>
-        <span class="axis-label label-y">ВЫБОР</span>
-      </div>
-    </section>
-
-    <div class="signal-line" aria-hidden="true"><span>01 ВОПРОС</span><i></i><span>02 ВЫБОР</span><i></i><span>03 РЕЗУЛЬТАТ</span><i></i><span>100% АНОНИМНО</span></div>
-
-    <section class="topics-section" id="topics">
-      <div class="section-heading">
-        <div><span class="section-number">01</span><h2>Темы</h2></div>
-        <p>Выбери направление мысли<br>или открой всё сразу.</p>
-      </div>
-      <div class="topic-list" id="topicList"></div>
-    </section>
-
-    <section class="vote-section" id="vote">
-      <div class="section-heading vote-heading">
-        <div><span class="section-number">02</span><h2>Твой вопрос</h2></div>
-        <div class="question-index"><span id="currentIndex">01</span><i></i><span id="questionCount">30</span></div>
-      </div>
-
-      <div class="vote-layout">
-        <article class="poll-card" id="pollCard">
-          <div class="card-topline">
-            <span class="category-pill" id="questionCategory">ДИЛЕММЫ</span>
-            <button class="icon-btn" id="copyBtn" title="Скопировать ссылку" aria-label="Скопировать ссылку">
-              <svg viewBox="0 0 24 24"><path d="M8 12h8M13 8l4 4-4 4"/><path d="M17 5h2v14H5V5h2"/></svg>
-            </button>
-          </div>
-          <h3 id="questionText">Загрузка вопроса…</h3>
-          <p class="question-note" id="questionNote"></p>
-          <div class="options" id="options" role="group" aria-label="Варианты ответа"></div>
-          <div class="result-message" id="resultMessage" aria-live="polite"></div>
-          <div class="card-footer">
-            <div class="vote-count"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c3 0 5 2 5 5"/></svg><strong id="voteCount">0</strong> голосов</div>
-            <div class="card-actions"><button class="text-btn" id="skipBtn">Пропустить</button><button class="next-btn" id="nextBtn" disabled>Дальше <span>→</span></button></div>
-          </div>
-        </article>
-
-        <aside class="side-panel">
-          <div class="side-card your-stats">
-            <div class="side-title"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/></svg><span>ТВОЙ ПРОФИЛЬ</span></div>
-            <div class="stat-ring" id="statRing"><strong id="agreementRate">—</strong><small>с большинством</small></div>
-            <div class="mini-stats"><div><b id="answeredCount">0</b><span>ответов</span></div><div><b id="streakCount">0</b><span>серия</span></div></div>
-          </div>
-          <div class="side-card hot-card">
-            <div class="side-title"><svg viewBox="0 0 24 24"><path d="M4 17 9 12l4 3 7-9"/><path d="M15 6h5v5"/></svg><span>В ЦЕНТРЕ СПОРА</span></div>
-            <p id="hotQuestion">Что важнее: быть правым или сохранить отношения?</p>
-            <button id="hotBtn">Открыть вопрос <span>↗</span></button>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="generator-section" id="generator">
-      <div class="generator-intro">
-        <span class="section-number">03</span>
-        <h2>Генератор<br><span>дилемм</span></h2>
-        <p>Создай новый вопрос за несколько секунд. Алгоритм соединит тему, характер и уровень сложности — без нейросети и повторов.</p>
-        <div class="generator-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg><span>Работает прямо в браузере.<br>Ничего не отправляет на сервер.</span></div>
-      </div>
-      <div class="generator-panel">
-        <div class="generator-controls">
-          <label><span>ТЕМА</span><select id="genCategory"><option>Случайная</option><option>18+</option><option>Деньги</option><option>Отношения</option><option>Будущее</option><option>Абсурд</option><option>Выбор</option></select></label>
-          <label><span>ХАРАКТЕР</span><select id="genTone"><option>Сбалансированный</option><option>Сложный</option><option>Ироничный</option><option>Жёсткий 18+</option></select></label>
-        </div>
-        <div class="generated-question" id="generatedQuestion">
-          <span class="gen-label">НОВЫЙ ВОПРОС</span>
-          <h3>Нажми «Создать», и здесь появится новая дилемма.</h3>
-          <div class="gen-options"><span>Вариант A</span><i>ИЛИ</i><span>Вариант B</span></div>
-        </div>
-        <div class="generator-actions">
-          <button class="outline-btn" id="regenerateBtn">Создать заново <span>⟳</span></button>
-          <button class="solid-btn" id="addQuestionBtn" disabled>Добавить в голосование <span>＋</span></button>
-        </div>
-      </div>
-    </section>
-
-    <section class="rating-section" id="rating">
-      <div class="section-heading light">
-        <div><span class="section-number">04</span><h2>Почти 50 / 50</h2></div>
-        <p>Вопросы, которые разделили<br>аудиторию ровно пополам.</p>
-      </div>
-      <div class="rating-grid" id="ratingGrid"></div>
-    </section>
-
-    <section class="manifesto">
-      <svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><path d="M40 6v68M6 40h68M16 16l48 48M64 16 16 64"/></svg>
-      <p>Правильного ответа не существует</p>
-      <h2>СУЩЕСТВУЕТ<br><span>ТВОЙ ВЫБОР</span></h2>
-      <button class="solid-btn" id="manifestoRandom">Случайный вопрос <span>↗</span></button>
-    </section>
-  </main>
-
-  <footer>
-    <a class="brand footer-brand" href="#top"><svg viewBox="0 0 42 42"><path d="M21 3 38 12.5v17L21 39 4 29.5v-17Z"/><path d="m14 20 5 5 10-11"/></svg><span>ВЫБОР</span></a>
-    <p>Независимый проект о человеческих решениях.<br>Результаты носят развлекательный характер.</p>
-    <div class="footer-links"><button data-scroll="vote">Голосовать</button><button data-scroll="generator">Генератор</button><button data-local-help>Как открыть локально</button><button id="resetStats">Сбросить ответы</button></div>
-    <span class="copyright">2026 / BY</span>
-  </footer>
-
-  <div class="help-modal" id="localHelp" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
-    <button class="modal-backdrop" data-close-help aria-label="Закрыть окно"></button>
-    <div class="help-dialog">
-      <div class="help-head">
-        <div><span class="section-number">БЕЗ УСТАНОВКИ</span><h2 id="helpTitle">Сайт на твоём компьютере</h2></div>
-        <button class="modal-close" data-close-help aria-label="Закрыть">×</button>
-      </div>
-      <p class="help-lead">Python, терминал и специальные программы не нужны. Сайт полностью статический и запускается обычным двойным кликом.</p>
-      <div class="install-steps">
-        <article><b>01</b><svg viewBox="0 0 32 32"><path d="M16 4v16M9 14l7 7 7-7M5 27h22"/></svg><h3>Скачай архив</h3><p>Нажми кнопку ниже. Браузер загрузит ZIP-архив проекта с GitHub.</p></article>
-        <article><b>02</b><svg viewBox="0 0 32 32"><path d="M4 9h10l3 3h11v15H4Z"/><path d="M9 9V5h14v7"/></svg><h3>Распакуй</h3><p>Нажми на архив правой кнопкой и выбери «Извлечь всё» или «Распаковать».</p></article>
-        <article><b>03</b><svg viewBox="0 0 32 32"><path d="M6 4h15l5 5v19H6Z"/><path d="M21 4v6h5M11 16h10M11 21h7"/></svg><h3>Открой index.html</h3><p>В распакованной папке дважды нажми <code>index.html</code>. Готово — сайт откроется в браузере.</p></article>
-      </div>
-      <div class="help-actions">
-        <a class="download-btn" href="https://github.com/denissakun65-sys/vybor/archive/refs/heads/main.zip">Скачать сайт в ZIP <span>↓</span></a>
-        <div><strong>Работает офлайн</strong><small>Голосования, генератор и личная статистика доступны без интернета.</small></div>
-      </div>
-      <details><summary>Если Windows показывает предупреждение</summary><p>Убедись, что открываешь именно файл <code>index.html</code>. Выбери «Открыть с помощью» → Chrome, Edge, Firefox или другой браузер. Ничего устанавливать не требуется.</p></details>
+    <div class="sidebar-bottom">
+      <div class="honesty"><i></i><div><b>Честные данные</b><span>Только реальные ответы на этом устройстве</span></div></div>
+      <button class="nav-item" id="settingsOpen"><svg><use href="#i-settings"/></svg><span>Настройки</span></button>
     </div>
+  </aside>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenu" aria-label="Меню">☰</button>
+      <div class="breadcrumb"><span>ЧЕСТНО</span><i>/</i><b id="pageTitle">ВОПРОСЫ</b></div>
+      <div class="top-actions">
+        <div class="data-badge"><i></i> ЛОКАЛЬНЫЕ ДАННЫЕ</div>
+        <button class="profile-button" id="profileButton"><span class="profile-avatar" id="topAvatar">?</span><div><b id="topName">Создать профиль</b><small id="topMeta">Нажмите, чтобы начать</small></div><span class="chevron">⌄</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="view active" id="view-vote">
+        <div class="view-head">
+          <div><span class="kicker">ПЕРСОНАЛЬНАЯ ЛЕНТА</span><h1>Твой следующий выбор</h1><p>Вопрос создаётся случайно специально для текущего профиля.</p></div>
+          <button class="secondary-button" id="newQuestion"><svg><use href="#i-random"/></svg> Другой вопрос</button>
+        </div>
+
+        <div class="content-grid">
+          <article class="poll-panel" id="pollPanel">
+            <div class="poll-meta"><span class="category" id="pollCategory">18+</span><span id="questionSerial">ВОПРОС #—</span><span class="fresh"><i></i> СОЗДАН СЕЙЧАС</span></div>
+            <h2 id="pollQuestion">Создай профиль, чтобы получить персональный вопрос.</h2>
+            <p class="condition" id="pollCondition">Мы не используем выдуманные результаты или ботов.</p>
+            <div class="choice-grid" id="choiceGrid">
+              <button class="choice" disabled><span class="choice-key">A</span><b>Вариант A</b><span class="choice-percent">—</span><i></i></button>
+              <div class="or">ИЛИ</div>
+              <button class="choice" disabled><span class="choice-key">B</span><b>Вариант B</b><span class="choice-percent">—</span><i></i></button>
+            </div>
+            <div class="poll-footer"><span id="realVoteCount">Пока нет ответов</span><strong id="resultNote">Результат появится после выбора</strong></div>
+          </article>
+
+          <aside class="right-column">
+            <div class="metric-card accent"><span>ТВОИ ОТВЕТЫ</span><strong id="sideAnswers">0</strong><small>реальных выборов</small><svg viewBox="0 0 120 45"><path d="M2 39 19 28l15 5 18-21 16 10 17-16 16 7 17-9"/></svg></div>
+            <div class="metric-card"><span>СОВПАДЕНИЕ</span><strong id="sideMatch">—</strong><small>с другими участниками</small><div class="meter"><i id="sideMatchBar"></i></div></div>
+            <div class="info-card"><b>Как это работает?</b><p>Алгоритм собирает вопрос из проверенных сценариев. Профили получают разные комбинации. Голоса считаются только после реального нажатия.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-people">
+        <div class="view-head"><div><span class="kicker">ЭТО УСТРОЙСТВО</span><h1>Таблица участников</h1><p>Только настоящие локальные профили и их фактические ответы.</p></div><button class="primary-button" id="addPerson"><svg><use href="#i-plus"/></svg> Добавить человека</button></div>
+        <div class="table-note"><svg><use href="#i-users"/></svg><p><b>Почему таблица локальная?</b><br>Сайт работает без сервера и регистрации. Здесь отображаются люди, которые голосовали в этом браузере. Никаких придуманных имён и чисел.</p></div>
+        <div class="people-table-wrap"><table class="people-table"><thead><tr><th>#</th><th>Участник</th><th>Ответов</th><th>С большинством</th><th>Последняя активность</th><th></th></tr></thead><tbody id="peopleRows"></tbody></table><div class="empty-table" id="emptyPeople">Пока нет участников. Добавьте первого человека.</div></div>
+      </section>
+
+      <section class="view" id="view-insights">
+        <div class="view-head"><div><span class="kicker">ТОЛЬКО ФАКТЫ</span><h1>Моя статистика</h1><p>Рассчитана исключительно по ответам выбранного профиля.</p></div></div>
+        <div class="insight-grid">
+          <div class="big-stat"><span>ВСЕГО ОТВЕТОВ</span><strong id="statAnswers">0</strong><small>Без тестовых и выдуманных голосов</small></div>
+          <div class="big-stat"><span>СОВПАЛ С БОЛЬШИНСТВОМ</span><strong id="statAgreement">—</strong><small>Среди локальных участников</small></div>
+          <div class="big-stat"><span>ЛЮБИМАЯ ТЕМА</span><strong class="text-stat" id="statCategory">—</strong><small>По количеству ответов</small></div>
+        </div>
+        <div class="history-panel"><div class="panel-title"><b>Последние выборы</b><span>ЛОКАЛЬНАЯ ИСТОРИЯ</span></div><div id="historyList" class="history-list"></div></div>
+      </section>
+    </main>
   </div>
 
-  <div class="toast" id="toast" role="status">Готово</div>
+  <div class="drawer-layer" id="settingsDrawer" aria-hidden="true"><button class="drawer-backdrop" data-close-settings></button><aside class="settings-panel"><div class="drawer-head"><div><span>ПЕРСОНАЛИЗАЦИЯ</span><h2>Настройки</h2></div><button data-close-settings><svg><use href="#i-close"/></svg></button></div>
+    <div class="setting-group"><label>Цвет акцента</label><div class="swatches" id="accentSwatches"><button data-color="#b9ff36" style="--sw:#b9ff36"></button><button data-color="#8b7cff" style="--sw:#8b7cff"></button><button data-color="#ff5c45" style="--sw:#ff5c45"></button><button data-color="#45d7ff" style="--sw:#45d7ff"></button><button data-color="#ffcf45" style="--sw:#ffcf45"></button></div></div>
+    <div class="setting-group"><label for="themeSelect">Тема</label><select id="themeSelect"><option value="dark">Тёмная</option><option value="light">Светлая</option><option value="black">Чёрная OLED</option></select></div>
+    <div class="setting-group"><label for="fontSize">Размер интерфейса <output id="fontOutput">100%</output></label><input type="range" id="fontSize" min="85" max="120" value="100"></div>
+    <div class="setting-group"><label>Форма карточек</label><div class="segmented" id="radiusChoice"><button data-radius="0px">Строго</button><button data-radius="10px" class="active">Мягко</button><button data-radius="22px">Кругло</button></div></div>
+    <label class="toggle-row"><span><b>Анимации</b><small>Плавная смена вопросов</small></span><input type="checkbox" id="motionToggle" checked><i></i></label>
+    <label class="toggle-row"><span><b>Компактный режим</b><small>Больше информации на экране</small></span><input type="checkbox" id="compactToggle"><i></i></label>
+    <div class="setting-actions"><button id="resetAppearance">Сбросить вид</button><button class="danger" id="eraseData">Удалить все данные</button></div>
+    <a class="download-link" href="https://github.com/denissakun65-sys/vybor/archive/refs/heads/main.zip"><svg><use href="#i-download"/></svg><span><b>Скачать сайт</b><small>Работает локально без установки</small></span></a>
+  </aside></div>
+
+  <div class="modal-layer" id="profileModal" aria-hidden="true"><div class="modal-card"><div class="modal-symbol">Ч</div><span class="kicker">ЛОКАЛЬНЫЙ ПРОФИЛЬ</span><h2 id="profileModalTitle">Как тебя называть?</h2><p>Ник нужен только для таблицы на этом устройстве. Регистрации и отправки данных нет.</p><label><span>НИК ИЛИ ИМЯ</span><input id="profileName" maxlength="24" placeholder="Например, Саша" autocomplete="off"></label><div class="modal-actions"><button class="secondary-button" id="profileCancel">Отмена</button><button class="primary-button" id="profileSave">Продолжить →</button></div><small class="modal-legal">Продолжая, ты подтверждаешь, что тебе исполнилось 18 лет.</small></div></div>
+  <div class="profile-menu" id="profileMenu"></div>
+  <div class="toast" id="toast"></div>
   <script src="app.js"></script>
-</body>
-</html>
+</body></html>

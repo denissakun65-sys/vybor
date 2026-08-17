@@ -1,184 +1,59 @@
-const questions = [
-  {cat:'18+', q:'Обосраться на первом свидании или назвать партнёра именем бывшего во время секса?', note:'Свидание мечты отменяется в обоих случаях.', options:['Провал на свидании','Имя бывшего'], votes:[19832,20117]},
-  {cat:'18+', q:'Показать маме всю историю браузера или дать друзьям прочитать все личные переписки?', note:'Удалять, закрывать вкладки и давать пояснения нельзя.', options:['История для мамы','Переписки друзьям'], votes:[24419,23982]},
-  {cat:'18+', q:'Год без секса или год без музыки?', note:'Совсем. Даже случайно услышанное считается.', options:['Без секса','Без музыки'], votes:[21804,22011]},
-  {cat:'18+', q:'Выпить стакан воды из чужой ванны или лизнуть поручень в метро?', note:'Вода после купания. Поручень в час пик.', options:['Вода из ванны','Поручень метро'], votes:[17338,17081]},
-  {cat:'18+', q:'Всегда говорить вслух, когда хочешь в туалет, или каждый раз сообщать, когда тебе кто-то нравится?', note:'Громко и при всех присутствующих.', options:['Говорить про туалет','Признаваться в симпатии'], votes:[25091,14972]},
-  {cat:'18+', q:'Навсегда отказаться от алкоголя или от секса?', note:'Даже по праздникам. Исключений нет.', options:['Без алкоголя','Без секса'], votes:[28110,12377]},
-  {cat:'18+', q:'Родители получают доступ к твоим сообщениям или бывший — к твоим фотографиям?', note:'Полный архив за последние пять лет.', options:['Сообщения родителям','Фото бывшему'], votes:[20145,19862]},
-  {cat:'18+', q:'Месяц не мыться или месяц спать по три часа в сутки?', note:'Дезодорант нельзя. Отсыпаться днём тоже.', options:['Не мыться','Спать по 3 часа'], votes:[12538,27301]},
-  {cat:'18+', q:'Каждый твой оргазм сопровождается сиреной или каждое враньё — громким мяуканьем?', note:'Звук слышат все в радиусе ста метров.', options:['Сирена','Мяуканье'], votes:[19944,20218]},
-  {cat:'18+', q:'Прийти голым на чужую свадьбу или в свадебном костюме на похороны?', note:'Уйти раньше окончания нельзя.', options:['Голым на свадьбу','Нарядным на похороны'], votes:[21887,17862]},
-  {cat:'18+', q:'Телефон без пароля остаётся на вечеринке или твой дневник читают вслух семье?', note:'В телефоне открыты последние переписки.', options:['Телефон на вечеринке','Дневник семье'], votes:[20502,20319]},
-  {cat:'18+', q:'Жить с родителями до 35 или каждый месяц переезжать к новому случайному соседу?', note:'Денег на отдельное жильё в этом сценарии нет.', options:['С родителями','Случайные соседи'], votes:[22677,18120]},
-  {cat:'ДИЛЕММЫ', icon:'⚖', q:'Узнать дату своей смерти или причину?', note:'Изменить будущее нельзя — только знать.', options:['Знать дату','Знать причину'], votes:[18422,17931]},
-  {cat:'АБСУРД', icon:'◉', q:'Если бы тени умели говорить, чью ты бы боялся услышать?', note:'Свою тень тоже можно выбрать.', options:['Свою','Чужую'], votes:[9104,13487]},
-  {cat:'ДЕНЬГИ', icon:'₽', q:'10 миллионов сейчас или 100 тысяч каждый месяц до конца жизни?', note:'Выплаты не индексируются. Деньги легальные.', options:['10 млн сейчас','100 тыс. в месяц'], votes:[22519,23714]},
-  {cat:'ОТНОШЕНИЯ', icon:'♡', q:'Что важнее: быть правым или сохранить отношения?', note:'Представь, что спор действительно важный.', options:['Быть правым','Сохранить отношения'], votes:[15282,16019]},
-  {cat:'БУДУЩЕЕ', icon:'↗', q:'Жить 200 лет, но не иметь детей, или обычную жизнь с семьёй?', note:'Здоровье до конца жизни сохраняется.', options:['200 лет','Обычная жизнь'], votes:[11633,24591]},
-  {cat:'МОЗГОЛОМКИ', icon:'✦', q:'Ты бы удалил одно плохое воспоминание, если вместе с ним исчезнет одно хорошее?', note:'Выбрать конкретные воспоминания нельзя.', options:['Да, удалю','Нет, оставлю всё'], votes:[16840,17192]},
-  {cat:'ДИЛЕММЫ', icon:'⚖', q:'Всегда говорить только правду или никогда больше не говорить?', note:'Писать и жестикулировать тоже считается речью.', options:['Только правда','Полное молчание'], votes:[27891,9412]},
-  {cat:'АБСУРД', icon:'◉', q:'Кот размером со слона или сто слонов размером с кота?', note:'Они настроены дружелюбно, но очень хотят есть.', options:['Огромный кот','Сто мини-слонов'], votes:[19355,20418]},
-  {cat:'ДЕНЬГИ', icon:'₽', q:'Работа мечты за обычную зарплату или скучная работа за тройную?', note:'Рабочий день и коллектив одинаковые.', options:['Работа мечты','Тройная зарплата'], votes:[21774,22109]},
-  {cat:'ОТНОШЕНИЯ', icon:'♡', q:'Читать мысли партнёра или позволить ему читать твои?', note:'Отключить способность будет нельзя.', options:['Читать его мысли','Открыть свои'], votes:[25661,11308]},
-  {cat:'БУДУЩЕЕ', icon:'↗', q:'Телепортироваться куда угодно или останавливать время на 10 минут в день?', note:'Телепортация мгновенная. Время нельзя копить.', options:['Телепортация','Остановка времени'], votes:[18491,18605]},
-  {cat:'МОЗГОЛОМКИ', icon:'✦', q:'Если точная копия тебя совершит преступление, должен ли ты отвечать?', note:'Копия помнит всю твою жизнь и считает себя тобой.', options:['Да, должен','Нет, не должен'], votes:[10924,26951]},
-  {cat:'ДИЛЕММЫ', icon:'⚖', q:'Спасти любимого человека или пятерых незнакомцев?', note:'Третьего варианта нет. Никто не узнает о выборе.', options:['Любимого','Пятерых незнакомцев'], votes:[29718,15002]},
-  {cat:'АБСУРД', icon:'◉', q:'Что хуже: икать каждый раз, когда врёшь, или мяукать после каждого чиха?', note:'Очень тихо сделать это не получится.', options:['Икать от лжи','Мяукать от чиха'], votes:[15808,20316]},
-  {cat:'ДЕНЬГИ', icon:'₽', q:'Получить квартиру, в которой нельзя делать ремонт, или машину, которую нельзя продать?', note:'Обе вещи новые и находятся в твоём городе.', options:['Квартира','Машина'], votes:[32144,8709]},
-  {cat:'ОТНОШЕНИЯ', icon:'♡', q:'Лучше один друг на всю жизнь или много близких друзей на разные её этапы?', note:'В обоих случаях дружба будет настоящей.', options:['Один навсегда','Много в разное время'], votes:[19776,20212]},
-  {cat:'БУДУЩЕЕ', icon:'↗', q:'Отказаться от смартфона навсегда или от путешествий навсегда?', note:'Компьютером пользоваться можно. Командировки — тоже путешествия.', options:['Без смартфона','Без путешествий'], votes:[13014,28967]},
-  {cat:'МОЗГОЛОМКИ', icon:'✦', q:'Если корабль заменить по одной детали целиком — это всё ещё тот же корабль?', note:'Да, это тот самый парадокс Тесея.', options:['Да, тот же','Нет, уже другой'], votes:[20041,19884]},
-  {cat:'ДИЛЕММЫ', icon:'⚖', q:'Забыть всё прошлое или не создавать новых воспоминаний?', note:'Навыки сохранятся, но люди и события — нет.', options:['Забыть прошлое','Без новых воспоминаний'], votes:[26451,11207]},
-  {cat:'АБСУРД', icon:'◉', q:'Облака на вкус скорее сладкие или солёные?', note:'Наука временно не участвует в этом голосовании.', options:['Сладкие','Солёные'], votes:[28317,9462]},
-  {cat:'ДЕНЬГИ', icon:'₽', q:'Стабильность без роста или риск с шансом 20% стать очень богатым?', note:'В случае неудачи придётся начать с нуля.', options:['Стабильность','Рискнуть'], votes:[19915,20103]},
-  {cat:'ОТНОШЕНИЯ', icon:'♡', q:'Лучше получить честный болезненный ответ или утешительную ложь?', note:'Ты никогда не узнаешь, что ложь была ложью.', options:['Честный ответ','Утешительная ложь'], votes:[31401,9501]},
-  {cat:'БУДУЩЕЕ', icon:'↗', q:'Жить в идеальном виртуальном мире или несовершенной реальности?', note:'В виртуальном мире ты не будешь знать, что он виртуальный.', options:['Идеальная иллюзия','Реальная жизнь'], votes:[12519,27482]},
-  {cat:'МОЗГОЛОМКИ', icon:'✦', q:'Может ли решение быть свободным, если мозг принял его раньше тебя?', note:'Не думай слишком долго — или мозг победит.', options:['Да, может','Нет, не может'], votes:[17662,18091]},
-  {cat:'ДИЛЕММЫ', icon:'⚖', q:'Иметь кнопку «отменить» для слов или для поступков?', note:'Использовать можно один раз в неделю.', options:['Отменять слова','Отменять поступки'], votes:[14408,26992]},
-  {cat:'АБСУРД', icon:'◉', q:'Если понедельник исчезнет, вторник станет понедельником?', note:'Вопрос одобрен людьми, не любящими будильники.', options:['Да, неизбежно','Нет, будет вторник'], votes:[19011,18765]},
-  {cat:'ДЕНЬГИ', icon:'₽', q:'Получать 1 рубль за каждый шаг или 100 рублей за каждый час сна?', note:'Выплаты пожизненные и без налогов.', options:['Рубль за шаг','100 ₽ за час сна'], votes:[23451,17334]},
-  {cat:'ОТНОШЕНИЯ', icon:'♡', q:'Вернуться к одному разговору в прошлом или увидеть один разговор из будущего?', note:'Изменить увиденное напрямую нельзя.', options:['Разговор из прошлого','Разговор из будущего'], votes:[20148,20390]},
-  {cat:'БУДУЩЕЕ', icon:'↗', q:'Идеальная память или способность мгновенно забывать по желанию?', note:'Обе способности полностью под контролем.', options:['Помнить всё','Забывать по желанию'], votes:[22973,19207]},
-  {cat:'МОЗГОЛОМКИ', icon:'✦', q:'Если никто не помнит событие, было ли оно частью истории?', note:'Все физические следы тоже исчезли.', options:['Да, было','Нет, не было'], votes:[21840,18552]}
+const STORAGE_KEY='chestnoAppV1';
+const colors=['#b9ff36','#8b7cff','#ff5c45','#45d7ff','#ffcf45'];
+const scenarios=[
+ {cat:'18+',q:'Показать родителям всю историю браузера или друзьям все личные переписки?',a:'История родителям',b:'Переписки друзьям',c:['Удалять ничего нельзя.','Архив за последние пять лет.','Объясняться после просмотра запрещено.']},
+ {cat:'18+',q:'Обосраться на первом свидании или назвать партнёра именем бывшего во время секса?',a:'Провал на свидании',b:'Имя бывшего',c:['О случившемся узнают общие друзья.','Сбежать сразу нельзя.','Второго шанса не будет.']},
+ {cat:'18+',q:'Год без секса или год без музыки?',a:'Без секса',b:'Без музыки',c:['Случайно услышанное тоже считается.','Исключений по праздникам нет.','Выбор начинается прямо сейчас.']},
+ {cat:'18+',q:'Каждый твой оргазм сопровождается сиреной или каждое враньё — громким мяуканьем?',a:'Сирена',b:'Мяуканье',c:['Звук слышен в радиусе ста метров.','Убавить громкость невозможно.','Окружающие знают причину звука.']},
+ {cat:'18+',q:'Прийти голым на чужую свадьбу или в свадебном костюме на похороны?',a:'Голым на свадьбу',b:'Нарядным на похороны',c:['Уйти раньше окончания нельзя.','Там будут все знакомые.','Фотограф работает весь вечер.']},
+ {cat:'18+',q:'Навсегда отказаться от алкоголя или от секса?',a:'Без алкоголя',b:'Без секса',c:['Даже по праздникам.','Навсегда означает навсегда.','Без лазеек и замен.']},
+ {cat:'ПОЗОР',q:'Телефон без пароля остаётся на вечеринке или твой дневник читают вслух семье?',a:'Телефон на вечеринке',b:'Дневник семье',c:['В телефоне открыта последняя переписка.','Все внимательно досмотрят до конца.','Забрать вещь раньше нельзя.']},
+ {cat:'ПОЗОР',q:'Случайно отправить голосовое с обсуждением человека ему самому или признаться, что следишь за его страницей?',a:'Отправить голосовое',b:'Признаться в слежке',c:['Удалить сообщение уже нельзя.','Человек сразу отвечает.','Это тот, кто тебе нравится.']},
+ {cat:'БЫТ',q:'Месяц не мыться или месяц спать только по три часа?',a:'Не мыться',b:'Спать по 3 часа',c:['Дезодорант использовать нельзя.','Отпуск и больничный не дадут.','Окружающие знают о выборе.']},
+ {cat:'БЫТ',q:'Жить с родителями до 35 или каждый месяц переезжать к новому случайному соседу?',a:'С родителями',b:'Случайные соседи',c:['Отдельное жильё недоступно.','Соседей выбирает случай.','Правила дома устанавливаешь не ты.']},
+ {cat:'БЫТ',q:'Пользоваться только холодным душем или никогда больше не есть горячую еду?',a:'Холодный душ',b:'Холодная еда',c:['Так будет всю жизнь.','Погода ничего не меняет.','Подогреть даже чай нельзя.']},
+ {cat:'ДЕНЬГИ',q:'Получить миллион сейчас или десять миллионов через десять лет?',a:'Миллион сейчас',b:'Ждать 10 лет',c:['Инфляция неизвестна.','Получить раньше невозможно.','О решении никто не узнает.']},
+ {cat:'ДЕНЬГИ',q:'Жить бесплатно с неприятным человеком или отдавать половину дохода за одиночество?',a:'Бесплатно вдвоём',b:'Дорого одному',c:['Переехать ближайшие пять лет нельзя.','Человек не станет приятнее.','Доход останется обычным.']},
+ {cat:'ДЕНЬГИ',q:'Потерять все накопления или год работать бесплатно?',a:'Потерять накопления',b:'Работать бесплатно',c:['Долгов не появится.','Помощи от семьи не будет.','Выбрать другую работу нельзя.']},
+ {cat:'ОТНОШЕНИЯ',q:'Узнать всю правду о партнёре или сохранить спокойствие и никогда не проверять?',a:'Узнать правду',b:'Не проверять',c:['Назад это знание не вернуть.','Спросить напрямую нельзя.','Ответ может всё изменить.']},
+ {cat:'ОТНОШЕНИЯ',q:'Вернуть одного человека из прошлого или гарантированно встретить нового близкого человека?',a:'Вернуть прошлое',b:'Встретить нового',c:['Оба варианта настоящие.','Решение нужно принять сегодня.','Второй возможности не будет.']},
+ {cat:'ОТНОШЕНИЯ',q:'Всегда понимать чужие чувства или уметь идеально объяснять свои?',a:'Понимать других',b:'Объяснять себя',c:['Второй навык навсегда останется слабым.','Способность нельзя отключить.','Это касается всех людей.']},
+ {cat:'ДРУЗЬЯ',q:'Сдать друга ради собственной безопасности или взять общую вину на себя?',a:'Сдать друга',b:'Взять вину',c:['Друг поступил бы с тобой так же.','Никто не узнает о мотивах.','Последствия будут реальными.']},
+ {cat:'ДРУЗЬЯ',q:'Узнать, что друзья обсуждают тебя, или никогда не знать их настоящего мнения?',a:'Узнать всё',b:'Не знать',c:['Они не узнают, что ты слышал.','Изменить разговор нельзя.','Там будет и хорошее, и плохое.']},
+ {cat:'МОЗГ',q:'Удалить самое плохое воспоминание вместе с одним хорошим или оставить всё?',a:'Удалить оба',b:'Оставить всё',c:['Выбрать хорошее воспоминание нельзя.','Навыки сохранятся.','Вернуть память невозможно.']},
+ {cat:'МОЗГ',q:'Знать дату своей смерти или причину?',a:'Знать дату',b:'Знать причину',c:['Изменить будущее нельзя.','Рассказать кому-либо нельзя.','Ответ будет абсолютно точным.']},
+ {cat:'МОЗГ',q:'Всегда говорить правду или никогда больше не говорить?',a:'Только правда',b:'Полное молчание',c:['Писать вместо речи нельзя.','Правда будет полной.','Исключений ради близких нет.']},
+ {cat:'АБСУРД',q:'Лизнуть поручень в метро или выпить стакан воды из чужой ванны?',a:'Поручень метро',b:'Вода из ванны',c:['Метро в час пик.','Вода после купания.','Прополоскать рот сразу нельзя.']},
+ {cat:'АБСУРД',q:'Иметь голос навигатора или смеяться звуком старого модема?',a:'Голос навигатора',b:'Смех модема',c:['Все замечают странность.','Вернуть обычный звук нельзя.','Это начинается завтра.']},
+ {cat:'БУДУЩЕЕ',q:'Жить в идеальном виртуальном мире или несовершенной реальности?',a:'Идеальная иллюзия',b:'Реальная жизнь',c:['Внутри иллюзии ты не узнаешь правду.','Вернуться после выбора нельзя.','Близкие могут выбрать иначе.']}
 ];
-
-const categories = [
-  ['ВСЕ','all'],['18+','adult'],['ДИЛЕММЫ','balance'],['АБСУРД','orbit'],['ДЕНЬГИ','coin'],['ОТНОШЕНИЯ','link'],['БУДУЩЕЕ','future'],['МОЗГОЛОМКИ','mind']
-];
-const iconPaths = {
-  all:'<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/>',
-  adult:'<path d="M12 3 21 7v6c0 5-4 7-9 9-5-2-9-4-9-9V7Z"/><path d="M8 10v5M7 10h2M7 15h2M12 10v5l3-5v5"/>',
-  balance:'<path d="M12 3v18M5 6h14M7 6l-4 8h8L7 6ZM17 6l-4 8h8l-4-8ZM8 21h8"/>',
-  orbit:'<circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(35 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-35 12 12)"/>',
-  coin:'<circle cx="12" cy="12" r="9"/><path d="M9 7h4a3 3 0 0 1 0 6H9V7Zm0 6h5M9 17h4M9 5v14"/>',
-  link:'<path d="M9.5 14.5 14.5 9M7 17H5a4 4 0 0 1 0-8h3M17 7h2a4 4 0 0 1 0 8h-3"/>',
-  future:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 3M4 4l3 1-2 3"/>',
-  mind:'<path d="M8 20H6a3 3 0 0 1-2-5 4 4 0 0 1 1-7 4 4 0 0 1 7-2 4 4 0 0 1 7 3 4 4 0 0 1 1 7 3 3 0 0 1-3 4h-2M12 5v16M8 9h4M12 13h4"/>'
-};
-function icon(name){return `<svg class="topic-icon" viewBox="0 0 24 24" aria-hidden="true">${iconPaths[name]}</svg>`}
-let activeCategory='ВСЕ', filtered=[...questions.keys()], current=0, voted=false;
-let stats=JSON.parse(localStorage.getItem('vyborStatsV2')||'{"answered":0,"agreed":0,"streak":0,"votes":{}}');
-const $=s=>document.querySelector(s);
-const els={card:$('#pollCard'),category:$('#questionCategory'),q:$('#questionText'),note:$('#questionNote'),options:$('#options'),count:$('#voteCount'),idx:$('#currentIndex'),total:$('#questionCount'),next:$('#nextBtn'),message:$('#resultMessage')};
-
-function format(n){return new Intl.NumberFormat('ru-RU').format(n)}
-function renderTopics(){
-  $('#topicList').innerHTML=categories.map(([name,iconName])=>`<button class="topic-btn ${name===activeCategory?'active':''}" data-cat="${name}">${icon(iconName)}<span>${name}</span></button>`).join('');
-  document.querySelectorAll('.topic-btn').forEach(b=>b.onclick=()=>{activeCategory=b.dataset.cat; filtered=questions.map((_,i)=>i).filter(i=>activeCategory==='ВСЕ'||questions[i].cat===activeCategory);current=0;renderTopics();changeQuestion();document.querySelector('#vote').scrollIntoView({behavior:'smooth'});});
-}
-function renderQuestion(){
-  const qi=filtered[current%filtered.length], data=questions[qi]; voted=false;
-  els.category.textContent=data.cat;els.q.textContent=data.q;els.note.textContent=data.note;els.idx.textContent=String(current+1).padStart(2,'0');els.total.textContent=String(filtered.length).padStart(2,'0');
-  const saved=stats.votes[qi];
-  els.options.innerHTML=data.options.map((o,i)=>`<button class="option-btn" data-option="${i}"><span class="fill"></span><span class="option-content"><span>${o}</span><b class="percent"></b></span></button>`).join('');
-  els.count.textContent=format(data.votes.reduce((a,b)=>a+b,0)+(saved!==undefined?1:0));els.message.textContent='';els.next.disabled=true;
-  document.querySelectorAll('.option-btn').forEach(b=>b.onclick=()=>vote(qi,+b.dataset.option));
-  if(saved!==undefined) reveal(qi,saved,false);
-}
-function vote(qi,choice){
-  if(voted||stats.votes[qi]!==undefined)return;
-  const data=questions[qi], total=data.votes[0]+data.votes[1]+1, counts=[...data.votes];counts[choice]++;
-  const majority=counts[0]>=counts[1]?0:1;stats.answered++;stats.votes[qi]=choice;
-  if(choice===majority){stats.agreed++;stats.streak++;}else stats.streak=0;
-  localStorage.setItem('vyborStatsV2',JSON.stringify(stats));reveal(qi,choice,true);updateStats();
-}
-function reveal(qi,choice,isNew){
-  voted=true;const data=questions[qi],counts=[...data.votes];counts[choice]++;const total=counts[0]+counts[1];let p0=Math.round(counts[0]/total*100), ps=[p0,100-p0];
-  document.querySelectorAll('.option-btn').forEach((b,i)=>{b.disabled=true;b.classList.add('revealed');if(i===choice)b.classList.add('chosen');b.querySelector('.percent').textContent=ps[i]+'%';requestAnimationFrame(()=>b.querySelector('.fill').style.width=ps[i]+'%');});
-  els.count.textContent=format(total);els.next.disabled=false;
-  const majority=ps[choice]>=50;els.message.textContent=majority?'Ты с большинством. Но это ещё не значит, что вы правы.':'Редкий выбор — так ответило меньшинство.';
-  if(!isNew) els.message.textContent='Ты уже отвечал на этот вопрос.';
-}
-function changeQuestion(target){
-  els.card.classList.add('change');setTimeout(()=>{if(target!==undefined){const pos=filtered.indexOf(target);if(pos>=0)current=pos;else{activeCategory='ВСЕ';filtered=[...questions.keys()];current=target;renderTopics();}}else current=(current+1)%filtered.length;renderQuestion();els.card.classList.remove('change');},220);
-}
-function randomQuestion(){const next=Math.floor(Math.random()*questions.length);changeQuestion(next);setTimeout(()=>$('#vote').scrollIntoView({behavior:'smooth',block:'center'}),80)}
-function updateStats(){
-  $('#answeredCount').textContent=stats.answered;$('#streakCount').textContent=stats.streak;const rate=stats.answered?Math.round(stats.agreed/stats.answered*100):0;$('#agreementRate').textContent=stats.answered?rate+'%':'—';$('#statRing').style.background=`conic-gradient(var(--ink) ${rate*3.6}deg,#ffffff88 0)`;
-}
-function renderRating(){
- const ranked=questions.map((q,i)=>({q,i,d:Math.abs(q.votes[0]/(q.votes[0]+q.votes[1])*100-50)})).sort((a,b)=>a.d-b.d).slice(0,3);
- $('#ratingGrid').innerHTML=ranked.map((x,n)=>{let p=Math.round(x.q.votes[0]/(x.q.votes[0]+x.q.votes[1])*100);return `<article class="rating-card" data-i="${x.i}"><span class="rank">#0${n+1} · ${x.q.cat}</span><h3>${x.q.q}</h3><div class="split-bar"><i style="width:${p}%"></i><i style="width:${100-p}%"></i></div><div class="split-labels"><span>${p}%</span><span>${100-p}%</span></div></article>`}).join('');
- document.querySelectorAll('.rating-card').forEach(c=>c.onclick=()=>{changeQuestion(+c.dataset.i);setTimeout(()=>$('#vote').scrollIntoView({behavior:'smooth'}),100)});
-}
-function showToast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
-
-
-const generatorBank = {
-  '18+': [
-    ['Дать родителям прочитать твои переписки или показать друзьям историю браузера?','Переписки родителям','История друзьям'],
-    ['Год жить без секса или год без любимой музыки?','Без секса','Без музыки'],
-    ['Опозориться на первом свидании или случайно написать бывшему ночью?','Позор на свидании','Сообщение бывшему'],
-    ['Месяц не мыться или месяц спать только по три часа?','Не мыться','Почти не спать'],
-    ['Каждый раз вслух сообщать о симпатии или о желании сходить в туалет?','Про симпатию','Про туалет']
-  ],
-  'Деньги': [
-    ['Получить {sum} сейчас или удвоенную сумму через {years}?','Деньги сейчас','Подождать'],
-    ['Выбрать {comfort} или рискнуть всем ради {dream}?','Стабильность','Риск'],
-    ['Работать {hours}, но за тройную зарплату, или жить скромно со свободным временем?','Высокий доход','Свободное время']
-  ],
-  'Отношения': [
-    ['Знать всю правду о близком человеке или сохранить доверие без доказательств?','Знать правду','Сохранить доверие'],
-    ['Вернуть одну прошлую дружбу или гарантированно найти новую?','Вернуть прошлое','Найти новое'],
-    ['Всегда понимать чувства других или уметь идеально объяснять свои?','Понимать других','Объяснять себя']
-  ],
-  'Будущее': [
-    ['Увидеть свой мир через {years} или получить один совет от себя из будущего?','Увидеть мир','Получить совет'],
-    ['Жить в городе без машин или в городе без интернета?','Без машин','Без интернета'],
-    ['Доверить важное решение алгоритму или случайному человеку?','Алгоритму','Человеку']
-  ],
-  'Абсурд': [
-    ['Иметь голос навигатора или смеяться звуком старого модема?','Голос навигатора','Смех модема'],
-    ['Если бы {object} умел обижаться, пришлось бы перед ним извиняться?','Да, пришлось бы','Нет, это вещь'],
-    ['Каждый понедельник менять имя или каждую пятницу — профессию?','Менять имя','Менять профессию']
-  ],
-  'Выбор': [
-    ['Помнить каждую ошибку или забывать каждый успех?','Помнить ошибки','Забывать успехи'],
-    ['Иметь один идеальный день в году или хорошие выходные каждую неделю?','Идеальный день','Хорошие выходные'],
-    ['Уметь отменять сказанное или заранее слышать последствия своих слов?','Отменять слова','Слышать последствия']
-  ]
-};
-const substitutions={sum:['миллион','10 миллионов','годовую зарплату'],years:['5 лет','10 лет','20 лет'],comfort:['полную стабильность','знакомую работу','предсказуемую жизнь'],dream:['мечты','собственного дела','свободы'],hours:['по 12 часов в день','без выходных один год','три дня в неделю'],object:['будильник','холодильник','рабочий стол']};
-let generated=null,lastGenerated='';
-function pick(a){return a[Math.floor(Math.random()*a.length)]}
-function fillTemplate(text){return text.replace(/\{(\w+)\}/g,(_,key)=>pick(substitutions[key]))}
-function generateDilemma(){
-  let category=$('#genCategory').value;
-  if(category==='Случайная') category=pick(Object.keys(generatorBank));
-  const tone=$('#genTone').value;
-  let variants=generatorBank[category], item=pick(variants), tries=0;
-  while(item[0]===lastGenerated&&tries++<8)item=pick(variants);
-  lastGenerated=item[0];
-  let q=fillTemplate(item[0]);
-  if(tone==='Сложный'&&category!=='Абсурд')q=q.replace(/\?$/,', если изменить решение потом будет нельзя?');
-  if(tone==='Ироничный'&&category!=='Абсурд')q=q.replace(/\?$/,' — и объяснить свой выбор родителям?');
-  if(tone==='Жёсткий 18+'&&category!=='18+')q=q.replace(/\?$/,' — пока все друзья смотрят и снимают на видео?');
-  const map={'18+':'18+','Деньги':'ДЕНЬГИ','Отношения':'ОТНОШЕНИЯ','Будущее':'БУДУЩЕЕ','Абсурд':'АБСУРД','Выбор':'ДИЛЕММЫ'};
-  generated={cat:map[category],q,note:'Вопрос создан генератором прямо в твоём браузере.',options:[item[1],item[2]],votes:[Math.floor(8500+Math.random()*16000),Math.floor(8500+Math.random()*16000)]};
-  $('#generatedQuestion').innerHTML=`<span class="gen-label">${generated.cat} · НОВЫЙ ВОПРОС</span><h3>${generated.q}</h3><div class="gen-options"><span>${generated.options[0]}</span><i>ИЛИ</i><span>${generated.options[1]}</span></div>`;
-  $('#addQuestionBtn').disabled=false;
-}
-function addGenerated(){
-  if(!generated)return;
-  questions.push({...generated});
-  activeCategory='ВСЕ';filtered=[...questions.keys()];current=questions.length-1;
-  renderTopics();renderRating();renderQuestion();
-  $('#vote').scrollIntoView({behavior:'smooth'});
-  showToast('Вопрос добавлен в голосование');
-  generated=null;$('#addQuestionBtn').disabled=true;
-}
-
-renderTopics();renderQuestion();renderRating();updateStats();
-els.next.onclick=()=>changeQuestion();$('#skipBtn').onclick=()=>changeQuestion();$('#randomHeader').onclick=randomQuestion;$('#manifestoRandom').onclick=randomQuestion;$('#hotBtn').onclick=()=>{const hot=questions.findIndex(x=>x.q.startsWith('Что важнее: быть правым'));changeQuestion(hot);setTimeout(()=>$('#vote').scrollIntoView({behavior:'smooth'}),100)};
-$('#copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]+'#vote');showToast('Ссылка скопирована');}catch{showToast('Ссылка готова: '+location.href)}};
-const helpModal=$('#localHelp');
-function openLocalHelp(){helpModal.classList.add('open');helpModal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');helpModal.querySelector('.modal-close').focus()}
-function closeLocalHelp(){helpModal.classList.remove('open');helpModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
-document.querySelectorAll('[data-local-help]').forEach(b=>b.onclick=openLocalHelp);
-document.querySelectorAll('[data-close-help]').forEach(b=>b.onclick=closeLocalHelp);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&helpModal.classList.contains('open'))closeLocalHelp()});
-document.querySelectorAll('[data-scroll]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}));
-$('#regenerateBtn').onclick=generateDilemma;$('#addQuestionBtn').onclick=addGenerated;
-$('#resetStats').onclick=()=>{if(confirm('Сбросить все твои ответы и статистику?')){stats={answered:0,agreed:0,streak:0,votes:{}};localStorage.setItem('vyborStatsV2',JSON.stringify(stats));updateStats();renderQuestion();showToast('Статистика сброшена')}};
-window.addEventListener('scroll',()=>{const y=scrollY+180;document.querySelectorAll('.nav button').forEach(b=>{const el=document.getElementById(b.dataset.scroll);b.classList.toggle('active',el&&y>=el.offsetTop&&y<el.offsetTop+el.offsetHeight)})});
+let state=loadState(), currentQuestion=null, pendingProfile=false;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function loadState(){try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY));if(s&&s.version===1)return s}catch{}return{version:1,profiles:[],activeId:null,results:{},settings:{accent:'#b9ff36',theme:'dark',scale:100,radius:'10px',motion:true,compact:false}}}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function profile(){return state.profiles.find(p=>p.id===state.activeId)||null}
+function hash(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function qid(q){return 'q'+hash(q.q+'|'+q.condition).toString(36)}
+function generateQuestion(force=false){const p=profile();if(!p){openProfileModal();return}if(!force&&p.current){currentQuestion=p.current;renderPoll();return}p.counter=(p.counter||0)+1;let attempt=0,q;do{const r=rng(hash(p.id+':'+p.counter+':'+attempt));const base=scenarios[Math.floor(r()*scenarios.length)];const condition=base.c[Math.floor(r()*base.c.length)];q={cat:base.cat,q:base.q,a:base.a,b:base.b,condition};q.id=qid(q);attempt++}while((p.seen||[]).includes(q.id)&&attempt<100);p.seen=[...(p.seen||[]),q.id].slice(-100);p.current=q;currentQuestion=q;save();renderPoll()}
+function renderPoll(){const p=profile(),q=currentQuestion;if(!p||!q)return;$('#pollCategory').textContent=q.cat;$('#questionSerial').textContent='ВОПРОС #'+String(p.counter||1).padStart(3,'0');$('#pollQuestion').textContent=q.q;$('#pollCondition').textContent=q.condition;const result=state.results[q.id]||{voters:{}};const own=result.voters?.[p.id];$('#choiceGrid').innerHTML=`<button class="choice ${own===0?'selected':''}" data-choice="0" ${own!==undefined?'disabled':''}><span class="choice-key">A</span><b>${q.a}</b><span class="choice-percent">—</span><i></i></button><div class="or">ИЛИ</div><button class="choice ${own===1?'selected':''}" data-choice="1" ${own!==undefined?'disabled':''}><span class="choice-key">B</span><b>${q.b}</b><span class="choice-percent">—</span><i></i></button>`;$$('.choice').forEach(b=>b.onclick=()=>castVote(+b.dataset.choice));if(own!==undefined)revealResult(result,own);else{$('#realVoteCount').textContent='Пока нет ответа этого профиля';$('#resultNote').textContent='Проценты появятся после выбора'}updateDashboard()}
+function castVote(choice){const p=profile(),q=currentQuestion;if(!p||!q)return;let r=state.results[q.id]||{voters:{}};if(r.voters[p.id]!==undefined)return;r.voters[p.id]=choice;state.results[q.id]=r;p.answers=p.answers||[];p.answers.unshift({qid:q.id,q:q.q,cat:q.cat,choice,answer:choice?q.b:q.a,ts:Date.now()});p.lastActive=Date.now();p.current=null;save();revealResult(r,choice);updateDashboard();renderPeople();toast('Ответ записан честно')}
+function revealResult(r,own){const vals=Object.values(r.voters||{}),a=vals.filter(v=>v===0).length,b=vals.length-a,total=vals.length,pa=Math.round(a/total*100),pb=100-pa;$$('.choice').forEach((el,i)=>{el.disabled=true;el.querySelector('.choice-percent').textContent=(i?pb:pa)+'%';el.querySelector('i').style.width=(i?pb:pa)+'%';if(i===own)el.classList.add('selected')});$('#realVoteCount').textContent=total===1?'1 реальный ответ на этом устройстве':`${total} реальных ответа на этом устройстве`;$('#resultNote').textContent=total<2?'Для сравнения нужен ещё один участник':(own===(a>=b?0:1)?'Твой выбор совпал с большинством':'Ты выбрал мнение меньшинства')}
+function createProfile(name){const id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);state.profiles.push({id,name,color:colors[state.profiles.length%colors.length],answers:[],seen:[],counter:0,lastActive:Date.now()});state.activeId=id;save();closeProfileModal();refreshProfile();generateQuestion(true);toast('Профиль создан')}
+function refreshProfile(){const p=profile();$('#topName').textContent=p?p.name:'Создать профиль';$('#topMeta').textContent=p?`${p.answers?.length||0} ответов · локально`:'Нажмите, чтобы начать';$('#topAvatar').textContent=p?p.name[0].toUpperCase():'?';$('#topAvatar').style.background=p?.color||'var(--accent)';renderProfileMenu();renderPeople();updateDashboard();renderInsights()}
+function renderProfileMenu(){const box=$('#profileMenu');box.innerHTML=state.profiles.map(p=>`<button data-profile="${p.id}"><span class="small-avatar" style="background:${p.color}">${escapeHtml(p.name[0].toUpperCase())}</span><span>${escapeHtml(p.name)}${p.id===state.activeId?' · активен':''}</span></button>`).join('')+`<button class="add-profile" data-add><svg style="width:17px;height:17px;fill:none;stroke:currentColor"><use href="#i-plus"/></svg> Добавить человека</button>`;box.querySelectorAll('[data-profile]').forEach(b=>b.onclick=()=>switchProfile(b.dataset.profile));box.querySelector('[data-add]').onclick=()=>openProfileModal()}
+function switchProfile(id){state.activeId=id;save();$('#profileMenu').classList.remove('open');refreshProfile();const p=profile();currentQuestion=p.current||null;generateQuestion(!currentQuestion);showView('vote')}
+function profileAgreement(p){let comparable=0,agree=0;(p.answers||[]).forEach(x=>{const vals=Object.values(state.results[x.qid]?.voters||{});if(vals.length<2)return;comparable++;const a=vals.filter(v=>v===0).length;const maj=a>=vals.length-a?0:1;if(x.choice===maj)agree++});return comparable?Math.round(agree/comparable*100):null}
+function updateDashboard(){const p=profile(),n=p?.answers?.length||0,rate=p?profileAgreement(p):null;$('#sideAnswers').textContent=n;$('#sideMatch').textContent=rate===null?'—':rate+'%';$('#sideMatchBar').style.width=(rate||0)+'%'}
+function renderPeople(){const rows=$('#peopleRows');const sorted=[...state.profiles].sort((a,b)=>(b.answers?.length||0)-(a.answers?.length||0));rows.innerHTML=sorted.map((p,i)=>{const rate=profileAgreement(p);return `<tr><td>${String(i+1).padStart(2,'0')}</td><td><div class="person-cell"><span class="small-avatar" style="background:${p.color}">${escapeHtml(p.name[0].toUpperCase())}</span><span><b>${escapeHtml(p.name)}</b><small>${p.id===state.activeId?'<i class="active-tag">АКТИВЕН</i>':'Локальный профиль'}</small></span></div></td><td><b>${p.answers?.length||0}</b></td><td>${rate===null?'Недостаточно данных':rate+'%'}</td><td>${timeAgo(p.lastActive)}</td><td><button class="row-action" data-switch="${p.id}">Выбрать</button></td></tr>`}).join('');$('#emptyPeople').style.display=state.profiles.length?'none':'block';$$('[data-switch]').forEach(b=>b.onclick=()=>switchProfile(b.dataset.switch))}
+function renderInsights(){const p=profile(),answers=p?.answers||[],rate=p?profileAgreement(p):null;$('#statAnswers').textContent=answers.length;$('#statAgreement').textContent=rate===null?'—':rate+'%';const counts={};answers.forEach(a=>counts[a.cat]=(counts[a.cat]||0)+1);$('#statCategory').textContent=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'—';$('#historyList').innerHTML=answers.length?answers.slice(0,12).map(a=>`<div class="history-item"><span>${a.cat}</span><p>${escapeHtml(a.q)}</p><b>${escapeHtml(a.answer)}</b></div>`).join(''):'<div class="empty-history">Здесь появятся только реальные ответы выбранного профиля.</div>'}
+function showView(name){$$('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));$$('.nav-item[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));$('#pageTitle').textContent={vote:'ВОПРОСЫ',people:'УЧАСТНИКИ',insights:'СТАТИСТИКА'}[name];if(name==='people')renderPeople();if(name==='insights')renderInsights();$('.sidebar').classList.remove('open')}
+function openProfileModal(){pendingProfile=true;$('#profileModal').classList.add('open');$('#profileModal').setAttribute('aria-hidden','false');$('#profileCancel').style.display=state.profiles.length?'inline-flex':'none';$('#profileName').value='';setTimeout(()=>$('#profileName').focus(),50)}
+function closeProfileModal(){pendingProfile=false;$('#profileModal').classList.remove('open')}
+function applySettings(){const s=state.settings;document.documentElement.dataset.theme=s.theme||'dark';document.documentElement.style.setProperty('--accent',s.accent||'#b9ff36');document.documentElement.style.setProperty('--scale',(s.scale||100)/100);document.documentElement.style.setProperty('--radius',s.radius||'10px');document.body.classList.toggle('no-motion',s.motion===false);document.body.classList.toggle('compact',!!s.compact);$('#themeSelect').value=s.theme||'dark';$('#fontSize').value=s.scale||100;$('#fontOutput').textContent=(s.scale||100)+'%';$('#motionToggle').checked=s.motion!==false;$('#compactToggle').checked=!!s.compact;$$('#accentSwatches button').forEach(b=>b.classList.toggle('active',b.dataset.color===(s.accent||'#b9ff36')));$$('#radiusChoice button').forEach(b=>b.classList.toggle('active',b.dataset.radius===(s.radius||'10px')))}
+function timeAgo(ts){if(!ts)return '—';const m=Math.floor((Date.now()-ts)/60000);if(m<1)return 'только что';if(m<60)return `${m} мин. назад`;const h=Math.floor(m/60);if(h<24)return `${h} ч. назад`;return new Date(ts).toLocaleDateString('ru-RU')}
+function escapeHtml(s=''){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+$$('[data-view]').forEach(b=>b.onclick=()=>showView(b.dataset.view));$('#newQuestion').onclick=()=>{const panel=$('#pollPanel');panel.classList.add('changing');setTimeout(()=>{generateQuestion(true);panel.classList.remove('changing')},180)};$('#addPerson').onclick=openProfileModal;$('#profileButton').onclick=e=>{e.stopPropagation();if(!state.profiles.length)openProfileModal();else $('#profileMenu').classList.toggle('open')};document.addEventListener('click',()=>$('#profileMenu').classList.remove('open'));$('#profileMenu').onclick=e=>e.stopPropagation();$('#profileSave').onclick=()=>{const n=$('#profileName').value.trim();if(n.length<2)return toast('Введите имя минимум из 2 символов');createProfile(n)};$('#profileName').onkeydown=e=>{if(e.key==='Enter')$('#profileSave').click()};$('#profileCancel').onclick=closeProfileModal;$('#mobileMenu').onclick=()=>$('.sidebar').classList.toggle('open');
+$('#settingsOpen').onclick=()=>{$('#settingsDrawer').classList.add('open');applySettings()};$$('[data-close-settings]').forEach(b=>b.onclick=()=>$('#settingsDrawer').classList.remove('open'));$$('#accentSwatches button').forEach(b=>b.onclick=()=>{state.settings.accent=b.dataset.color;save();applySettings()});$('#themeSelect').onchange=e=>{state.settings.theme=e.target.value;save();applySettings()};$('#fontSize').oninput=e=>{state.settings.scale=+e.target.value;save();applySettings()};$$('#radiusChoice button').forEach(b=>b.onclick=()=>{state.settings.radius=b.dataset.radius;save();applySettings()});$('#motionToggle').onchange=e=>{state.settings.motion=e.target.checked;save();applySettings()};$('#compactToggle').onchange=e=>{state.settings.compact=e.target.checked;save();applySettings()};$('#resetAppearance').onclick=()=>{state.settings={accent:'#b9ff36',theme:'dark',scale:100,radius:'10px',motion:true,compact:false};save();applySettings();toast('Внешний вид сброшен')};$('#eraseData').onclick=()=>{if(confirm('Удалить все профили, ответы и настройки с этого устройства?')){localStorage.removeItem(STORAGE_KEY);location.reload()}};
+applySettings();refreshProfile();if(profile()){currentQuestion=profile().current||null;generateQuestion(!currentQuestion)}else setTimeout(openProfileModal,250);
