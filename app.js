@@ -1,4 +1,16 @@
 const questions = [
+  {cat:'18+', q:'Обосраться на первом свидании или назвать партнёра именем бывшего во время секса?', note:'Свидание мечты отменяется в обоих случаях.', options:['Провал на свидании','Имя бывшего'], votes:[19832,20117]},
+  {cat:'18+', q:'Показать маме всю историю браузера или дать друзьям прочитать все личные переписки?', note:'Удалять, закрывать вкладки и давать пояснения нельзя.', options:['История для мамы','Переписки друзьям'], votes:[24419,23982]},
+  {cat:'18+', q:'Год без секса или год без музыки?', note:'Совсем. Даже случайно услышанное считается.', options:['Без секса','Без музыки'], votes:[21804,22011]},
+  {cat:'18+', q:'Выпить стакан воды из чужой ванны или лизнуть поручень в метро?', note:'Вода после купания. Поручень в час пик.', options:['Вода из ванны','Поручень метро'], votes:[17338,17081]},
+  {cat:'18+', q:'Всегда говорить вслух, когда хочешь в туалет, или каждый раз сообщать, когда тебе кто-то нравится?', note:'Громко и при всех присутствующих.', options:['Говорить про туалет','Признаваться в симпатии'], votes:[25091,14972]},
+  {cat:'18+', q:'Навсегда отказаться от алкоголя или от секса?', note:'Даже по праздникам. Исключений нет.', options:['Без алкоголя','Без секса'], votes:[28110,12377]},
+  {cat:'18+', q:'Родители получают доступ к твоим сообщениям или бывший — к твоим фотографиям?', note:'Полный архив за последние пять лет.', options:['Сообщения родителям','Фото бывшему'], votes:[20145,19862]},
+  {cat:'18+', q:'Месяц не мыться или месяц спать по три часа в сутки?', note:'Дезодорант нельзя. Отсыпаться днём тоже.', options:['Не мыться','Спать по 3 часа'], votes:[12538,27301]},
+  {cat:'18+', q:'Каждый твой оргазм сопровождается сиреной или каждое враньё — громким мяуканьем?', note:'Звук слышат все в радиусе ста метров.', options:['Сирена','Мяуканье'], votes:[19944,20218]},
+  {cat:'18+', q:'Прийти голым на чужую свадьбу или в свадебном костюме на похороны?', note:'Уйти раньше окончания нельзя.', options:['Голым на свадьбу','Нарядным на похороны'], votes:[21887,17862]},
+  {cat:'18+', q:'Телефон без пароля остаётся на вечеринке или твой дневник читают вслух семье?', note:'В телефоне открыты последние переписки.', options:['Телефон на вечеринке','Дневник семье'], votes:[20502,20319]},
+  {cat:'18+', q:'Жить с родителями до 35 или каждый месяц переезжать к новому случайному соседу?', note:'Денег на отдельное жильё в этом сценарии нет.', options:['С родителями','Случайные соседи'], votes:[22677,18120]},
   {cat:'ДИЛЕММЫ', icon:'⚖', q:'Узнать дату своей смерти или причину?', note:'Изменить будущее нельзя — только знать.', options:['Знать дату','Знать причину'], votes:[18422,17931]},
   {cat:'АБСУРД', icon:'◉', q:'Если бы тени умели говорить, чью ты бы боялся услышать?', note:'Свою тень тоже можно выбрать.', options:['Свою','Чужую'], votes:[9104,13487]},
   {cat:'ДЕНЬГИ', icon:'₽', q:'10 миллионов сейчас или 100 тысяч каждый месяц до конца жизни?', note:'Выплаты не индексируются. Деньги легальные.', options:['10 млн сейчас','100 тыс. в месяц'], votes:[22519,23714]},
@@ -32,10 +44,11 @@ const questions = [
 ];
 
 const categories = [
-  ['ВСЕ','all'],['ДИЛЕММЫ','balance'],['АБСУРД','orbit'],['ДЕНЬГИ','coin'],['ОТНОШЕНИЯ','link'],['БУДУЩЕЕ','future'],['МОЗГОЛОМКИ','mind']
+  ['ВСЕ','all'],['18+','adult'],['ДИЛЕММЫ','balance'],['АБСУРД','orbit'],['ДЕНЬГИ','coin'],['ОТНОШЕНИЯ','link'],['БУДУЩЕЕ','future'],['МОЗГОЛОМКИ','mind']
 ];
 const iconPaths = {
   all:'<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/>',
+  adult:'<path d="M12 3 21 7v6c0 5-4 7-9 9-5-2-9-4-9-9V7Z"/><path d="M8 10v5M7 10h2M7 15h2M12 10v5l3-5v5"/>',
   balance:'<path d="M12 3v18M5 6h14M7 6l-4 8h8L7 6ZM17 6l-4 8h8l-4-8ZM8 21h8"/>',
   orbit:'<circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(35 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-35 12 12)"/>',
   coin:'<circle cx="12" cy="12" r="9"/><path d="M9 7h4a3 3 0 0 1 0 6H9V7Zm0 6h5M9 17h4M9 5v14"/>',
@@ -45,7 +58,7 @@ const iconPaths = {
 };
 function icon(name){return `<svg class="topic-icon" viewBox="0 0 24 24" aria-hidden="true">${iconPaths[name]}</svg>`}
 let activeCategory='ВСЕ', filtered=[...questions.keys()], current=0, voted=false;
-let stats=JSON.parse(localStorage.getItem('vybiraiStats')||'{"answered":0,"agreed":0,"streak":0,"votes":{}}');
+let stats=JSON.parse(localStorage.getItem('vyborStatsV2')||'{"answered":0,"agreed":0,"streak":0,"votes":{}}');
 const $=s=>document.querySelector(s);
 const els={card:$('#pollCard'),category:$('#questionCategory'),q:$('#questionText'),note:$('#questionNote'),options:$('#options'),count:$('#voteCount'),idx:$('#currentIndex'),total:$('#questionCount'),next:$('#nextBtn'),message:$('#resultMessage')};
 
@@ -68,7 +81,7 @@ function vote(qi,choice){
   const data=questions[qi], total=data.votes[0]+data.votes[1]+1, counts=[...data.votes];counts[choice]++;
   const majority=counts[0]>=counts[1]?0:1;stats.answered++;stats.votes[qi]=choice;
   if(choice===majority){stats.agreed++;stats.streak++;}else stats.streak=0;
-  localStorage.setItem('vybiraiStats',JSON.stringify(stats));reveal(qi,choice,true);updateStats();
+  localStorage.setItem('vyborStatsV2',JSON.stringify(stats));reveal(qi,choice,true);updateStats();
 }
 function reveal(qi,choice,isNew){
   voted=true;const data=questions[qi],counts=[...data.votes];counts[choice]++;const total=counts[0]+counts[1];let p0=Math.round(counts[0]/total*100), ps=[p0,100-p0];
@@ -93,6 +106,13 @@ function showToast(text){const t=$('#toast');t.textContent=text;t.classList.add(
 
 
 const generatorBank = {
+  '18+': [
+    ['Дать родителям прочитать твои переписки или показать друзьям историю браузера?','Переписки родителям','История друзьям'],
+    ['Год жить без секса или год без любимой музыки?','Без секса','Без музыки'],
+    ['Опозориться на первом свидании или случайно написать бывшему ночью?','Позор на свидании','Сообщение бывшему'],
+    ['Месяц не мыться или месяц спать только по три часа?','Не мыться','Почти не спать'],
+    ['Каждый раз вслух сообщать о симпатии или о желании сходить в туалет?','Про симпатию','Про туалет']
+  ],
   'Деньги': [
     ['Получить {sum} сейчас или удвоенную сумму через {years}?','Деньги сейчас','Подождать'],
     ['Выбрать {comfort} или рискнуть всем ради {dream}?','Стабильность','Риск'],
@@ -133,7 +153,8 @@ function generateDilemma(){
   let q=fillTemplate(item[0]);
   if(tone==='Сложный'&&category!=='Абсурд')q=q.replace(/\?$/,', если изменить решение потом будет нельзя?');
   if(tone==='Ироничный'&&category!=='Абсурд')q=q.replace(/\?$/,' — и объяснить свой выбор родителям?');
-  const map={'Деньги':'ДЕНЬГИ','Отношения':'ОТНОШЕНИЯ','Будущее':'БУДУЩЕЕ','Абсурд':'АБСУРД','Выбор':'ДИЛЕММЫ'};
+  if(tone==='Жёсткий 18+'&&category!=='18+')q=q.replace(/\?$/,' — пока все друзья смотрят и снимают на видео?');
+  const map={'18+':'18+','Деньги':'ДЕНЬГИ','Отношения':'ОТНОШЕНИЯ','Будущее':'БУДУЩЕЕ','Абсурд':'АБСУРД','Выбор':'ДИЛЕММЫ'};
   generated={cat:map[category],q,note:'Вопрос создан генератором прямо в твоём браузере.',options:[item[1],item[2]],votes:[Math.floor(8500+Math.random()*16000),Math.floor(8500+Math.random()*16000)]};
   $('#generatedQuestion').innerHTML=`<span class="gen-label">${generated.cat} · НОВЫЙ ВОПРОС</span><h3>${generated.q}</h3><div class="gen-options"><span>${generated.options[0]}</span><i>ИЛИ</i><span>${generated.options[1]}</span></div>`;
   $('#addQuestionBtn').disabled=false;
@@ -149,7 +170,7 @@ function addGenerated(){
 }
 
 renderTopics();renderQuestion();renderRating();updateStats();
-els.next.onclick=()=>changeQuestion();$('#skipBtn').onclick=()=>changeQuestion();$('#randomHeader').onclick=randomQuestion;$('#manifestoRandom').onclick=randomQuestion;$('#hotBtn').onclick=()=>{changeQuestion(3);setTimeout(()=>$('#vote').scrollIntoView({behavior:'smooth'}),100)};
+els.next.onclick=()=>changeQuestion();$('#skipBtn').onclick=()=>changeQuestion();$('#randomHeader').onclick=randomQuestion;$('#manifestoRandom').onclick=randomQuestion;$('#hotBtn').onclick=()=>{const hot=questions.findIndex(x=>x.q.startsWith('Что важнее: быть правым'));changeQuestion(hot);setTimeout(()=>$('#vote').scrollIntoView({behavior:'smooth'}),100)};
 $('#copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]+'#vote');showToast('Ссылка скопирована');}catch{showToast('Ссылка готова: '+location.href)}};
 const helpModal=$('#localHelp');
 function openLocalHelp(){helpModal.classList.add('open');helpModal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');helpModal.querySelector('.modal-close').focus()}
@@ -159,5 +180,5 @@ document.querySelectorAll('[data-close-help]').forEach(b=>b.onclick=closeLocalHe
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&helpModal.classList.contains('open'))closeLocalHelp()});
 document.querySelectorAll('[data-scroll]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}));
 $('#regenerateBtn').onclick=generateDilemma;$('#addQuestionBtn').onclick=addGenerated;
-$('#resetStats').onclick=()=>{if(confirm('Сбросить все твои ответы и статистику?')){stats={answered:0,agreed:0,streak:0,votes:{}};localStorage.setItem('vybiraiStats',JSON.stringify(stats));updateStats();renderQuestion();showToast('Статистика сброшена')}};
+$('#resetStats').onclick=()=>{if(confirm('Сбросить все твои ответы и статистику?')){stats={answered:0,agreed:0,streak:0,votes:{}};localStorage.setItem('vyborStatsV2',JSON.stringify(stats));updateStats();renderQuestion();showToast('Статистика сброшена')}};
 window.addEventListener('scroll',()=>{const y=scrollY+180;document.querySelectorAll('.nav button').forEach(b=>{const el=document.getElementById(b.dataset.scroll);b.classList.toggle('active',el&&y>=el.offsetTop&&y<el.offsetTop+el.offsetHeight)})});
