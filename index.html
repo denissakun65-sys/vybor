@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://denissakun65-sys.github.io/vybor/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 <div class="app-shell">
@@ -52,6 +52,12 @@
         <article><div class="stat-icon lime"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-4 13v4l4-2 4 2v-4a7 7 0 0 0-4-13Z"/></svg></div><div><small>СОВПАДЕНИЕ</small><strong id="statAgreement">—</strong><span>с локальным большинством</span></div></article>
         <article><div class="stat-icon purple"><svg viewBox="0 0 24 24"><path d="M4 17 9 12l4 3 7-9M15 6h5v5"/></svg></div><div><small>СЕРИЯ</small><strong id="statStreak">0</strong><span>ответов подряд</span></div></article>
         <article><div class="stat-icon orange"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c4 0 6 2 6 5"/></svg></div><div><small>УЧАСТНИКИ</small><strong id="statPeople">0</strong><span>на этом устройстве</span></div></article>
+      </section>
+
+      <section class="playbar" aria-label="Режим игры">
+        <div class="mode-control"><span>РЕЖИМ ИГРЫ</span><div id="playModes"><button data-mode="1">Разогрев</button><button class="active" data-mode="2">Смело</button><button data-mode="3">Без тормозов</button></div></div>
+        <div class="chaos-meter"><span>УРОВЕНЬ ХАОСА</span><div><i id="chaosBar"></i></div><b id="chaosValue">0%</b></div>
+        <button class="chaos-button" id="chaosQuestion"><svg viewBox="0 0 24 24"><path d="M12 2v5M12 17v5M2 12h5M17 12h5M5 5l3.5 3.5M15.5 15.5 19 19M19 5l-3.5 3.5M8.5 15.5 5 19"/><circle cx="12" cy="12" r="3"/></svg><span><small>НЕ ЗНАЕШЬ, ЧТО ВЫБРАТЬ?</small><b>КОЛЕСО ХАОСА</b></span></button>
       </section>
 
       <section class="main-grid" id="feed">
