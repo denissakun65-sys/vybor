@@ -3,104 +3,105 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0b0d10">
-  <title>ЧЕСТНО — личные дилеммы 18+</title>
-  <meta name="description" content="Случайные честные дилеммы, реальные локальные результаты и таблица участников.">
+  <title>Честный выбор — локальные голосования 18+</title>
+  <meta name="description" content="Персональные дилеммы, честная локальная статистика и таблица участников.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <svg class="svg-defs" aria-hidden="true"><defs>
-    <symbol id="i-vote" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><path d="M4 4h16v16H4z"/></symbol>
-    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c3 0 5 2 5 5"/></symbol>
-    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/></symbol>
-    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 13.5v-3l2-1-2-4-2 1a8 8 0 0 0-3-2l-.5-2h-4L9 4.5a8 8 0 0 0-3 2l-2-1-2 4 2 1v3l-2 1 2 4 2-1a8 8 0 0 0 3 2l.5 2h4l.5-2a8 8 0 0 0 3-2l2 1 2-4z"/></symbol>
-    <symbol id="i-random" viewBox="0 0 24 24"><path d="M4 7h3c5 0 5 10 10 10h3M17 4l3 3-3 3M4 17h3c2 0 3-2 4-4M17 14l3 3-3 3"/></symbol>
-    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
-    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
-  </defs></svg>
-
+<div class="app-shell">
   <aside class="sidebar">
-    <a class="logo" href="#"><span class="logo-shape">Ч</span><b>ЧЕСТНО</b><i>18+</i></a>
+    <a class="logo" href="#feed" aria-label="Честный выбор">
+      <svg viewBox="0 0 36 36"><path d="M18 2.5 32 10v16L18 33.5 4 26V10Z"/><path d="m11 17 5 5 9-10"/></svg>
+      <span>ЧЕСТНЫЙ<br>ВЫБОР</span><b>18+</b>
+    </a>
     <nav>
-      <button class="nav-item active" data-view="vote"><svg><use href="#i-vote"/></svg><span>Вопросы</span></button>
-      <button class="nav-item" data-view="people"><svg><use href="#i-users"/></svg><span>Участники</span></button>
-      <button class="nav-item" data-view="insights"><svg><use href="#i-chart"/></svg><span>Моя статистика</span></button>
+      <a class="active" href="#feed" data-section="feed"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg><span>Лента</span></a>
+      <a href="#generator" data-section="generator"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/><circle cx="12" cy="12" r="4"/></svg><span>Генератор</span></a>
+      <a href="#people" data-section="people"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c4 0 6 2 6 5"/></svg><span>Участники</span><i id="peopleBadge">0</i></a>
+      <a href="#history" data-section="history"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2-5.4L4 9M4 4v5h5M12 7v5l3 2"/></svg><span>История</span></a>
+      <button id="openSettings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 13.5V17l-3 2-2-1.3-2 .3-1 3H7l-1-3 1-2-2-2-3 .5V10l3-1 1-2-1-3h4l1 3 2 1 2-1 2-3 3 2-1 3 1 2 3 1v4Z"/></svg><span>Настройки</span></button>
     </nav>
-    <div class="sidebar-bottom">
-      <div class="honesty"><i></i><div><b>Честные данные</b><span>Только реальные ответы на этом устройстве</span></div></div>
-      <button class="nav-item" id="settingsOpen"><svg><use href="#i-settings"/></svg><span>Настройки</span></button>
-    </div>
+    <div class="sidebar-foot"><span class="status-dot"></span><div><strong>Локальный режим</strong><small>данные только на устройстве</small></div></div>
   </aside>
 
-  <div class="app-shell">
+  <main>
     <header class="topbar">
       <button class="mobile-menu" id="mobileMenu" aria-label="Меню">☰</button>
-      <div class="breadcrumb"><span>ЧЕСТНО</span><i>/</i><b id="pageTitle">ВОПРОСЫ</b></div>
+      <div><span class="crumb">ПРОСТРАНСТВО /</span><strong>МОИ ГОЛОСОВАНИЯ</strong></div>
       <div class="top-actions">
-        <div class="data-badge"><i></i> ЛОКАЛЬНЫЕ ДАННЫЕ</div>
-        <button class="profile-button" id="profileButton"><span class="profile-avatar" id="topAvatar">?</span><div><b id="topName">Создать профиль</b><small id="topMeta">Нажмите, чтобы начать</small></div><span class="chevron">⌄</span></button>
+        <button class="icon-action" id="randomQuestion" title="Случайный вопрос"><svg viewBox="0 0 24 24"><path d="M3 7h3c5 0 7 10 12 10h3M18 14l3 3-3 3M3 17h3c2 0 3-1 4-3M14 8c1-1 2-1 4-1h3M18 4l3 3-3 3"/></svg></button>
+        <button class="profile-button" id="profileButton"><span class="avatar" id="topAvatar">?</span><span><small>Текущий участник</small><strong id="topName">Выбрать имя</strong></span><b>⌄</b></button>
       </div>
     </header>
 
-    <main>
-      <section class="view active" id="view-vote">
-        <div class="view-head">
-          <div><span class="kicker">ПЕРСОНАЛЬНАЯ ЛЕНТА</span><h1>Твой следующий выбор</h1><p>Вопрос создаётся случайно специально для текущего профиля.</p></div>
-          <button class="secondary-button" id="newQuestion"><svg><use href="#i-random"/></svg> Другой вопрос</button>
-        </div>
+    <div class="content">
+      <section class="welcome-row">
+        <div><span class="eyebrow">ПЕРСОНАЛЬНАЯ СЕССИЯ</span><h1>Привет, <span id="helloName">участник</span>.</h1><p>Вопросы подбираются отдельно для твоего профиля и не повторяются, пока не закончится набор.</p></div>
+        <button class="primary" id="quickGenerate">Новый вопрос <span>↗</span></button>
+      </section>
 
-        <div class="content-grid">
-          <article class="poll-panel" id="pollPanel">
-            <div class="poll-meta"><span class="category" id="pollCategory">18+</span><span id="questionSerial">ВОПРОС #—</span><span class="fresh"><i></i> СОЗДАН СЕЙЧАС</span></div>
-            <h2 id="pollQuestion">Создай профиль, чтобы получить персональный вопрос.</h2>
-            <p class="condition" id="pollCondition">Мы не используем выдуманные результаты или ботов.</p>
-            <div class="choice-grid" id="choiceGrid">
-              <button class="choice" disabled><span class="choice-key">A</span><b>Вариант A</b><span class="choice-percent">—</span><i></i></button>
-              <div class="or">ИЛИ</div>
-              <button class="choice" disabled><span class="choice-key">B</span><b>Вариант B</b><span class="choice-percent">—</span><i></i></button>
-            </div>
-            <div class="poll-footer"><span id="realVoteCount">Пока нет ответов</span><strong id="resultNote">Результат появится после выбора</strong></div>
-          </article>
+      <section class="stats-grid" aria-label="Статистика">
+        <article><div class="stat-icon blue"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></div><div><small>МОИ ОТВЕТЫ</small><strong id="statAnswers">0</strong><span id="statToday">0 сегодня</span></div></article>
+        <article><div class="stat-icon lime"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-4 13v4l4-2 4 2v-4a7 7 0 0 0-4-13Z"/></svg></div><div><small>СОВПАДЕНИЕ</small><strong id="statAgreement">—</strong><span>с локальным большинством</span></div></article>
+        <article><div class="stat-icon purple"><svg viewBox="0 0 24 24"><path d="M4 17 9 12l4 3 7-9M15 6h5v5"/></svg></div><div><small>СЕРИЯ</small><strong id="statStreak">0</strong><span>ответов подряд</span></div></article>
+        <article><div class="stat-icon orange"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c4 0 6 2 6 5"/></svg></div><div><small>УЧАСТНИКИ</small><strong id="statPeople">0</strong><span>на этом устройстве</span></div></article>
+      </section>
 
-          <aside class="right-column">
-            <div class="metric-card accent"><span>ТВОИ ОТВЕТЫ</span><strong id="sideAnswers">0</strong><small>реальных выборов</small><svg viewBox="0 0 120 45"><path d="M2 39 19 28l15 5 18-21 16 10 17-16 16 7 17-9"/></svg></div>
-            <div class="metric-card"><span>СОВПАДЕНИЕ</span><strong id="sideMatch">—</strong><small>с другими участниками</small><div class="meter"><i id="sideMatchBar"></i></div></div>
-            <div class="info-card"><b>Как это работает?</b><p>Алгоритм собирает вопрос из проверенных сценариев. Профили получают разные комбинации. Голоса считаются только после реального нажатия.</p></div>
-          </aside>
+      <section class="main-grid" id="feed">
+        <article class="question-panel">
+          <div class="panel-head"><div><span class="live-dot"></span><b>ТВОЙ ВОПРОС</b><i id="questionType">18+</i></div><div><button id="bookmarkQuestion" title="Сохранить"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4Z"/></svg></button><button id="shareQuestion" title="Копировать"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="m8 11 8-4M8 13l8 4"/></svg></button></div></div>
+          <div class="question-body">
+            <div class="question-number">ВОПРОС <span id="questionNumber">001</span></div>
+            <h2 id="questionText">Создаём персональный вопрос…</h2>
+            <p id="questionNote">Здесь нет правильного ответа. Выбирай честно.</p>
+            <div class="answer-grid" id="answerGrid"></div>
+            <div class="result-note" id="resultNote"></div>
+          </div>
+          <footer class="question-footer"><div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg><span id="localVoteLabel">Пока нет локальных ответов</span></div><div><button class="ghost" id="skipQuestion">Пропустить</button><button class="primary small" id="nextQuestion" disabled>Следующий <span>→</span></button></div></footer>
+        </article>
+        <aside class="session-panel">
+          <div class="panel-title"><span>СЕССИЯ</span><b id="sessionProgress">0 / 10</b></div>
+          <div class="progress"><i id="sessionBar"></i></div>
+          <div class="session-list" id="sessionList"></div>
+          <button class="outline full" id="restartSession">Новая сессия</button>
+        </aside>
+      </section>
+
+      <section class="section-block" id="generator">
+        <div class="section-title"><div><span>ИНСТРУМЕНТ</span><h2>Генератор вопросов</h2></div><p>Собирает новую дилемму из темы, ставки и ограничения. Комбинации сохраняются, чтобы не повторяться у текущего участника.</p></div>
+        <div class="generator-card">
+          <div class="generator-form">
+            <label><span>ТЕМА</span><select id="genCategory"><option value="random">Любая</option><option value="adult">18+ и неловкое</option><option value="relations">Отношения</option><option value="money">Деньги</option><option value="life">Жизнь</option><option value="absurd">Абсурд</option></select></label>
+            <label><span>ЖЁСТКОСТЬ</span><input type="range" id="genIntensity" min="1" max="3" value="2"><output id="intensityOutput">Смело</output></label>
+            <label><span>ФОРМАТ</span><select id="genFormat"><option value="either">А или Б</option><option value="yesno">Да или нет</option><option value="sacrifice">Чем пожертвовать</option></select></label>
+            <button class="primary" id="generateCustom">Сгенерировать <span>⌁</span></button>
+          </div>
+          <div class="generator-preview"><span id="previewMeta">ГОТОВ К ГЕНЕРАЦИИ</span><h3 id="previewQuestion">Настрой параметры и создай вопрос, которого ещё не было в твоей истории.</h3><div id="previewOptions"><i>ВАРИАНТ А</i><i>ВАРИАНТ Б</i></div><button class="outline" id="sendToFeed" disabled>Отправить в ленту →</button></div>
         </div>
       </section>
 
-      <section class="view" id="view-people">
-        <div class="view-head"><div><span class="kicker">ЭТО УСТРОЙСТВО</span><h1>Таблица участников</h1><p>Только настоящие локальные профили и их фактические ответы.</p></div><button class="primary-button" id="addPerson"><svg><use href="#i-plus"/></svg> Добавить человека</button></div>
-        <div class="table-note"><svg><use href="#i-users"/></svg><p><b>Почему таблица локальная?</b><br>Сайт работает без сервера и регистрации. Здесь отображаются люди, которые голосовали в этом браузере. Никаких придуманных имён и чисел.</p></div>
-        <div class="people-table-wrap"><table class="people-table"><thead><tr><th>#</th><th>Участник</th><th>Ответов</th><th>С большинством</th><th>Последняя активность</th><th></th></tr></thead><tbody id="peopleRows"></tbody></table><div class="empty-table" id="emptyPeople">Пока нет участников. Добавьте первого человека.</div></div>
+      <section class="section-block" id="people">
+        <div class="section-title"><div><span>ЭТО УСТРОЙСТВО</span><h2>Таблица участников</h2></div><div class="section-actions"><button class="outline" id="exportData">Экспорт данных</button><button class="primary" id="addPerson">+ Добавить человека</button></div></div>
+        <div class="truth-banner"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg><p><strong>Честная статистика:</strong> здесь отображаются только люди, которые создали профиль и отвечали в этом браузере. Выдуманных участников и голосов нет.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>УЧАСТНИК</th><th>ОТВЕТОВ</th><th>С БОЛЬШИНСТВОМ</th><th>СЕРИЯ</th><th>ПОСЛЕДНЯЯ АКТИВНОСТЬ</th><th></th></tr></thead><tbody id="peopleTable"></tbody></table><div class="empty-table" id="emptyPeople">Пока нет участников</div></div>
       </section>
 
-      <section class="view" id="view-insights">
-        <div class="view-head"><div><span class="kicker">ТОЛЬКО ФАКТЫ</span><h1>Моя статистика</h1><p>Рассчитана исключительно по ответам выбранного профиля.</p></div></div>
-        <div class="insight-grid">
-          <div class="big-stat"><span>ВСЕГО ОТВЕТОВ</span><strong id="statAnswers">0</strong><small>Без тестовых и выдуманных голосов</small></div>
-          <div class="big-stat"><span>СОВПАЛ С БОЛЬШИНСТВОМ</span><strong id="statAgreement">—</strong><small>Среди локальных участников</small></div>
-          <div class="big-stat"><span>ЛЮБИМАЯ ТЕМА</span><strong class="text-stat" id="statCategory">—</strong><small>По количеству ответов</small></div>
-        </div>
-        <div class="history-panel"><div class="panel-title"><b>Последние выборы</b><span>ЛОКАЛЬНАЯ ИСТОРИЯ</span></div><div id="historyList" class="history-list"></div></div>
+      <section class="section-block" id="history">
+        <div class="section-title"><div><span>ЖУРНАЛ</span><h2>История ответов</h2></div><button class="outline" id="clearHistory">Очистить мою историю</button></div>
+        <div class="history-list" id="historyList"></div>
       </section>
-    </main>
-  </div>
+    </div>
+  </main>
+</div>
 
-  <div class="drawer-layer" id="settingsDrawer" aria-hidden="true"><button class="drawer-backdrop" data-close-settings></button><aside class="settings-panel"><div class="drawer-head"><div><span>ПЕРСОНАЛИЗАЦИЯ</span><h2>Настройки</h2></div><button data-close-settings><svg><use href="#i-close"/></svg></button></div>
-    <div class="setting-group"><label>Цвет акцента</label><div class="swatches" id="accentSwatches"><button data-color="#b9ff36" style="--sw:#b9ff36"></button><button data-color="#8b7cff" style="--sw:#8b7cff"></button><button data-color="#ff5c45" style="--sw:#ff5c45"></button><button data-color="#45d7ff" style="--sw:#45d7ff"></button><button data-color="#ffcf45" style="--sw:#ffcf45"></button></div></div>
-    <div class="setting-group"><label for="themeSelect">Тема</label><select id="themeSelect"><option value="dark">Тёмная</option><option value="light">Светлая</option><option value="black">Чёрная OLED</option></select></div>
-    <div class="setting-group"><label for="fontSize">Размер интерфейса <output id="fontOutput">100%</output></label><input type="range" id="fontSize" min="85" max="120" value="100"></div>
-    <div class="setting-group"><label>Форма карточек</label><div class="segmented" id="radiusChoice"><button data-radius="0px">Строго</button><button data-radius="10px" class="active">Мягко</button><button data-radius="22px">Кругло</button></div></div>
-    <label class="toggle-row"><span><b>Анимации</b><small>Плавная смена вопросов</small></span><input type="checkbox" id="motionToggle" checked><i></i></label>
-    <label class="toggle-row"><span><b>Компактный режим</b><small>Больше информации на экране</small></span><input type="checkbox" id="compactToggle"><i></i></label>
-    <div class="setting-actions"><button id="resetAppearance">Сбросить вид</button><button class="danger" id="eraseData">Удалить все данные</button></div>
-    <a class="download-link" href="https://github.com/denissakun65-sys/vybor/archive/refs/heads/main.zip"><svg><use href="#i-download"/></svg><span><b>Скачать сайт</b><small>Работает локально без установки</small></span></a>
-  </aside></div>
+<div class="drawer" id="settingsDrawer" aria-hidden="true"><button class="drawer-backdrop" data-close-settings></button><aside><header><div><span>ПЕРСОНАЛИЗАЦИЯ</span><h2>Настройки</h2></div><button data-close-settings>×</button></header><div class="settings-body">
+  <section><h3>Внешний вид</h3><label class="setting-row"><span><b>Тема</b><small>Цветовая схема приложения</small></span><select id="themeSetting"><option value="dark">Тёмная</option><option value="light">Светлая</option><option value="system">Как в системе</option></select></label><label class="setting-row"><span><b>Акцент</b><small>Основной цвет интерфейса</small></span><div class="color-options" id="accentSetting"><button data-color="#7c5cff" style="--c:#7c5cff"></button><button data-color="#33d17a" style="--c:#33d17a"></button><button data-color="#ff5c5c" style="--c:#ff5c5c"></button><button data-color="#27a8ff" style="--c:#27a8ff"></button><button data-color="#f5c542" style="--c:#f5c542"></button></div></label><label class="setting-row"><span><b>Размер текста</b><small>От 90% до 115%</small></span><input id="fontSetting" type="range" min="90" max="115" step="5" value="100"></label><label class="setting-row"><span><b>Компактный режим</b><small>Меньше отступов и карточек</small></span><input class="switch" id="compactSetting" type="checkbox"></label><label class="setting-row"><span><b>Анимации</b><small>Плавные переходы</small></span><input class="switch" id="motionSetting" type="checkbox" checked></label></section>
+  <section><h3>Вопросы</h3><label class="setting-row"><span><b>Контент 18+</b><small>Неловкие и взрослые темы</small></span><input class="switch" id="adultSetting" type="checkbox" checked></label><label class="setting-row"><span><b>Уровень жёсткости</b><small id="globalIntensityLabel">Смело</small></span><input id="globalIntensity" type="range" min="1" max="3" value="2"></label><label class="setting-row"><span><b>Не повторять вопросы</b><small>Отдельно для каждого профиля</small></span><input class="switch" id="uniqueSetting" type="checkbox" checked></label></section>
+  <section><h3>Приватность и данные</h3><label class="setting-row"><span><b>Скрывать фамилию</b><small>В таблице будет видна только первая буква</small></span><input class="switch" id="privacySetting" type="checkbox"></label><div class="setting-buttons"><button class="outline" id="importData">Импорт JSON</button><button class="outline" id="exportDataSettings">Экспорт JSON</button></div><button class="danger full" id="resetAll">Удалить все локальные данные</button></section>
+  <section><h3>Запуск без установки</h3><p class="settings-note">Скачай ZIP, распакуй архив и дважды нажми <b>index.html</b>. Python, Node.js и терминал не нужны.</p><a class="primary download-link" href="https://github.com/denissakun65-sys/vybor/archive/refs/heads/main.zip">Скачать ZIP <span>↓</span></a></section>
+</div></aside></div>
 
-  <div class="modal-layer" id="profileModal" aria-hidden="true"><div class="modal-card"><div class="modal-symbol">Ч</div><span class="kicker">ЛОКАЛЬНЫЙ ПРОФИЛЬ</span><h2 id="profileModalTitle">Как тебя называть?</h2><p>Ник нужен только для таблицы на этом устройстве. Регистрации и отправки данных нет.</p><label><span>НИК ИЛИ ИМЯ</span><input id="profileName" maxlength="24" placeholder="Например, Саша" autocomplete="off"></label><div class="modal-actions"><button class="secondary-button" id="profileCancel">Отмена</button><button class="primary-button" id="profileSave">Продолжить →</button></div><small class="modal-legal">Продолжая, ты подтверждаешь, что тебе исполнилось 18 лет.</small></div></div>
-  <div class="profile-menu" id="profileMenu"></div>
-  <div class="toast" id="toast"></div>
-  <script src="app.js"></script>
+<div class="modal" id="nameModal" aria-hidden="true"><div class="modal-card"><div class="identity-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="17" r="8"/><path d="M10 42c0-10 5-15 14-15s14 5 14 15"/></svg></div><span class="modal-kicker">ЛОКАЛЬНЫЙ ПРОФИЛЬ</span><h2>Представься настоящим именем</h2><p>Нужно имя и фамилия. Мы проверяем формат, но без документов невозможно подтвердить личность. Данные останутся только в этом браузере.</p><form id="nameForm"><label><span>ИМЯ И ФАМИЛИЯ</span><input id="realNameInput" autocomplete="name" maxlength="60" placeholder="Например: Анна Петрова" required><small id="nameError">Минимум два слова, только буквы и дефис</small></label><label class="age-check"><input id="ageConfirm" type="checkbox"><span>Мне исполнилось 18 лет</span></label><button class="primary full" type="submit">Создать профиль <span>→</span></button></form><button class="modal-cancel" id="cancelName">Отмена</button></div></div>
+<div class="profile-menu" id="profileMenu"></div><input type="file" id="importFile" accept="application/json" hidden><div class="toast" id="toast"></div>
+<script src="app.js"></script>
 </body></html>
